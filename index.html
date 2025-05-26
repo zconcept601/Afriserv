@@ -1,142 +1,460 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AfriServices | Services techniques à domicile</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --primary: #2E86AB;
-      --secondary: #F18F01;
-      --accent: #C73E1D;
-      --dark: #2B2D42;
-      --light: #F7F7FF;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Roboto, sans-serif;
-      background: var(--light);
-      color: var(--dark);
-    }
-
-    .hero {
-      position: relative;
-      height: 80vh;
-      background: url('https://images.unsplash.com/photo-1596985851417-dfb52f00d2f2?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-align: center;
-    }
-
-    .hero-overlay {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 2rem;
-      border-radius: 12px;
-    }
-
-    .hero-title {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-
-    .hero-subtitle {
-      font-size: 1.3rem;
-      max-width: 700px;
-      margin: auto;
-    }
-
-    .services-section {
-      max-width: 1200px;
-      margin: 4rem auto;
-      padding: 0 1rem;
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      color: var(--primary);
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-    }
-
-    .service-card {
-      background: white;
-      padding: 2rem;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      transition: transform 0.3s;
-    }
-
-    .service-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .service-icon {
-      font-size: 2.5rem;
-      color: var(--secondary);
-      margin-bottom: 1rem;
-    }
-
-    .service-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-    }
-
-    .service-description {
-      font-size: 0.95rem;
-      color: #555;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AfriServices | Trouvez des professionnels qualifiés</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2E86AB;
+            --secondary: #F18F01;
+            --accent: #C73E1D;
+            --dark: #2B2D42;
+            --light: #F7F7FF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        /* Header Hero */
+        .hero {
+            position: relative;
+            height: 80vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hero-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            filter: brightness(0.7);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.3s forwards;
+            opacity: 0;
+        }
+        
+        .hero-cta {
+            display: inline-block;
+            background: var(--secondary);
+            color: var(--dark);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            animation: fadeInUp 1s ease 0.6s forwards;
+            opacity: 0;
+            border: 3px solid transparent;
+        }
+        
+        .hero-cta:hover {
+            background: transparent;
+            border-color: var(--secondary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* Section Recherche */
+        .search-section {
+            background: white;
+            padding: 3rem 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 3;
+            margin-top: -50px;
+            border-radius: 20px 20px 0 0;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .search-container {
+            display: flex;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 1.2rem 1.5rem;
+            border: none;
+            font-size: 1.1rem;
+        }
+        
+        .search-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 2rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .search-button:hover {
+            background: var(--accent);
+        }
+        
+        /* Carousel Services */
+        .services-carousel {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .carousel-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            font-size: 2rem;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 1px solid #eee;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .service-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .service-description {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .discover-button {
+            display: block;
+            text-align: center;
+            margin: 3rem auto;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            width: fit-content;
+            transition: all 0.3s;
+        }
+        
+        .discover-button:hover {
+            background: var(--accent);
+            transform: scale(1.05);
+        }
+        
+        /* Section Fonctionnement */
+        .how-it-works {
+            background: var(--primary);
+            color: white;
+            padding: 4rem 1rem;
+            position: relative;
+        }
+        
+        .how-it-works::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M1200 0L0 0 892.25 114.72 1200 0z" fill="%23ffffff"></path></svg>');
+            background-size: cover;
+            transform: translateY(-99%);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .steps-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+        
+        .step:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .step-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .step-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .submit-service {
+            display: block;
+            text-align: center;
+            margin: 3rem auto 0;
+            background: var(--secondary);
+            color: var(--dark);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            width: fit-content;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .submit-service:hover {
+            background: transparent;
+            border-color: var(--secondary);
+            color: white;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .search-container {
+                flex-direction: column;
+                border-radius: 15px;
+            }
+            
+            .search-input {
+                padding: 1rem;
+            }
+            
+            .search-button {
+                padding: 1rem;
+            }
+            
+            .steps-container {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-overlay">
-      <h1 class="hero-title">Des techniciens qualifiés, où que vous soyez</h1>
-      <p class="hero-subtitle">
-        Montage de meubles, serrurerie, froid industriel, installations techniques – notre réseau est à votre service
-      </p>
-    </div>
-  </section>
-
-  <!-- Services -->
-  <section class="services-section">
-    <h2 class="section-title">Services techniques disponibles</h2>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon"><i class="fas fa-tools"></i></div>
-        <div class="service-title">Montage de meubles</div>
-        <div class="service-description">Assemblage professionnel de vos meubles à domicile</div>
-      </div>
-      <div class="service-card">
-        <div class="service-icon"><i class="fas fa-lock"></i></div>
-        <div class="service-title">Serrurerie</div>
-        <div class="service-description">Ouverture de porte, changement de serrure, sécurité</div>
-      </div>
-      <div class="service-card">
-        <div class="service-icon"><i class="fas fa-snowflake"></i></div>
-        <div class="service-title">Chambres froides</div>
-        <div class="service-description">Installation et maintenance de systèmes frigorifiques</div>
-      </div>
-      <div class="service-card">
-        <div class="service-icon"><i class="fas fa-plug"></i></div>
-        <div class="service-title">Électricité</div>
-        <div class="service-description">Interventions rapides et conformes aux normes</div>
-      </div>
-    </div>
-  </section>
-
+    <!-- Section Hero -->
+    <section class="hero">
+        <img src="https://images.unsplash.com/photo-1605106702734-205df224ecce?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Ouvrier en chantier" class="hero-image">
+        <div class="hero-content">
+            <h1 class="hero-title">Vos besoins, notre réseau</h1>
+            <p class="hero-subtitle">Trouvez en quelques clics le professionnel idéal pour tous vos projets, du montage de meuble à la création de site web</p>
+            <a href="#services" class="hero-cta">Trouver un service</a>
+        </div>
+    </section>
+    
+    <!-- Section Recherche -->
+    <section class="search-section">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Quel service recherchez-vous ?">
+            <button class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        
+        <!-- Carousel Services -->
+        <div class="services-carousel" id="services">
+            <h2 class="carousel-title">Nos services phares</h2>
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Développement Web" class="service-image">
+                    <div class="service-content">
+                        <h3 class="service-title">Développement Web</h3>
+                        <p class="service-description">Sites vitrines, e-commerce et applications sur mesure par des experts locaux</p>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Réseaux sociaux" class="service-image">
+                    <div class="service-content">
+                        <h3 class="service-title">Gestion Facebook</h3>
+                        <p class="service-description">Création et animation professionnelle de vos pages sociales</p>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1605152276897-4f618f831968?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Électricité" class="service-image">
+                    <div class="service-content">
+                        <h3 class="service-title">Électricité</h3>
+                        <p class="service-description">Installation et dépannage par des électriciens certifiés</p>
+                    </div>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Plomberie" class="service-image">
+                    <div class="service-content">
+                        <h3 class="service-title">Plomberie</h3>
+                        <p class="service-description">Interventions rapides pour tous vos problèmes de plomberie</p>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="services.html" class="discover-button">Découvrir tous les services</a>
+        </div>
+    </section>
+    
+    <!-- Section Fonctionnement -->
+    <section class="how-it-works">
+        <h2 class="section-title">Comment ça marche ?</h2>
+        <div class="steps-container">
+            <!-- Étape 1 -->
+            <div class="step">
+                <div class="step-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3 class="step-title">1. Recherchez</h3>
+                <p>Trouvez le service dont vous avez besoin grâce à notre moteur de recherche intelligent</p>
+            </div>
+            
+            <!-- Étape 2 -->
+            <div class="step">
+                <div class="step-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <h3 class="step-title">2. Comparez</h3>
+                <p>Consultez les profils, avis et tarifs des professionnels disponibles</p>
+            </div>
+            
+            <!-- Étape 3 -->
+            <div class="step">
+                <div class="step-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3 class="step-title">3. Contactez</h3>
+                <p>Discutez directement via WhatsApp et convenez des détails</p>
+            </div>
+        </div>
+        
+        <a href="devenir-prestataire.html" class="submit-service">Proposer un service</a>
+    </section>
+    
+    <script>
+        // Animation au scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.step, .service-card').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Gestion de la recherche
+            const searchButton = document.querySelector('.search-button');
+            searchButton.addEventListener('click', function() {
+                const query = document.querySelector('.search-input').value;
+                if (query.trim() !== '') {
+                    window.location.href = `services.html?search=${encodeURIComponent(query)}`;
+                }
+            });
+        });
+    </script>
 </body>
 </html>
