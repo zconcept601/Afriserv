@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devenir Prestataire | AfriServices</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563EB;
+            --secondary: #10B981;
+            --accent: #F59E0B;
+            --dark: #1F2937;
+            --light: #F3F4F6;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: #f9fafb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .main-nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Hero Section */
+        .provider-hero {
+            background: var(--gradient);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .hero-subtitle {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Formulaire en Étapes */
+        .form-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .form-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .step-progress {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #E5E7EB;
+            z-index: 1;
+            transform: translateY(-50%);
+        }
+
+        .step-progress-bar {
+            height: 100%;
+            background: var(--secondary);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 24%;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: #E5E7EB;
+            color: #6B7280;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .step.active .step-number {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .step.completed .step-number {
+            background: var(--primary);
+            color: white;
+        }
+
+        .step-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #6B7280;
+        }
+
+        .step.active .step-label,
+        .step.completed .step-label {
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        /* Contenu du Formulaire */
+        .form-content {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-label .required {
+            color: var(--accent);
+            margin-left: 0.25rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .form-hint {
+            font-size: 0.8rem;
+            color: #6B7280;
+            margin-top: 0.25rem;
+        }
+
+        /* Upload d'Images */
+        .image-upload {
+            border: 2px dashed #E5E7EB;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 1rem;
+        }
+
+        .image-upload:hover {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-text {
+            font-weight: 500;
+        }
+
+        .upload-hint {
+            font-size: 0.8rem;
+            color: #6B7280;
+            margin-top: 0.5rem;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .preview-item {
+            position: relative;
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .remove-image {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .remove-image:hover {
+            background: var(--accent);
+        }
+
+        /* Boutons de Navigation */
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #E5E7EB;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            border: none;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1D4ED8;
+        }
+
+        .btn-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Section Avantages */
+        .benefits-section {
+            background: var(--light);
+            padding: 3rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .benefits-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .benefit-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .benefit-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: #D1D5DB;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #374151;
+            color: #9CA3AF;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .step-label {
+                display: none;
+            }
+
+            .form-container {
+                padding: 0;
+            }
+
+            .form-content {
+                border-radius: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">AfriServices</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="prestataires.html" class="nav-link">Prestataires</a>
+                <a href="devenir-prestataire.html" class="nav-link active">Devenir Prestataire</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="provider-hero">
+        <h1 class="hero-title">Devenez Prestataire sur AfriServices</h1>
+        <p class="hero-subtitle">Rejoignez notre réseau de professionnels et augmentez votre visibilité auprès de milliers de clients potentiels</p>
+    </section>
+
+    <!-- Formulaire en Étapes -->
+    <div class="form-container">
+        <div class="form-steps">
+            <div class="step-progress">
+                <div class="step-progress-bar" id="stepProgress"></div>
+            </div>
+            
+            <div class="step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-label">Informations</div>
+            </div>
+            
+            <div class="step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-label">Service</div>
+            </div>
+            
+            <div class="step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-label">Tarifs</div>
+            </div>
+            
+            <div class="step" data-step="4">
+                <div class="step-number">4</div>
+                <div class="step-label">Validation</div>
+            </div>
+        </div>
+
+        <div class="form-content">
+            <!-- Étape 1 - Informations Personnelles -->
+            <div class="form-step active" id="step1">
+                <h2 class="form-title">Informations Personnelles</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName" class="form-label">Prénom <span class="required">*</span></label>
+                        <input type="text" id="firstName" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastName" class="form-label">Nom <span class="required">*</span></label>
+                        <input type="text" id="lastName" class="form-input" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email <span class="required">*</span></label>
+                    <input type="email" id="email" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone" class="form-label">Téléphone (WhatsApp) <span class="required">*</span></label>
+                    <input type="tel" id="phone" class="form-input" required>
+                    <p class="form-hint">Ce numéro sera visible par les clients potentiels</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location" class="form-label">Localisation <span class="required">*</span></label>
+                    <select id="location" class="form-select" required>
+                        <option value="">Sélectionnez votre ville</option>
+                        <option value="ouaga">Ouagadougou</option>
+                        <option value="bobo">Bobo-Dioulasso</option>
+                        <option value="dakar">Dakar</option>
+                        <option value="abidjan">Abidjan</option>
+                        <option value="lome">Lomé</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline btn-disabled" disabled>Précédent</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(1)">Suivant</button>
+                </div>
+            </div>
+
+            <!-- Étape 2 - Détails du Service -->
+            <div class="form-step" id="step2">
+                <h2 class="form-title">Détails de votre Service</h2>
+                
+                <div class="form-group">
+                    <label for="serviceTitle" class="form-label">Titre du Service <span class="required">*</span></label>
+                    <input type="text" id="serviceTitle" class="form-input" placeholder="Ex: Développement Web, Plomberie..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="serviceCategory" class="form-label">Catégorie <span class="required">*</span></label>
+                    <select id="serviceCategory" class="form-select" required>
+                        <option value="">Sélectionnez une catégorie</option>
+                        <option value="tech">Tech & Web</option>
+                        <option value="construction">Bricolage & Construction</option>
+                        <option value="design">Design Créatif</option>
+                        <option value="marketing">Marketing Digital</option>
+                        <option value="event">Événementiel</option>
+                        <option value="other">Autre</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="serviceDescription" class="form-label">Description <span class="required">*</span></label>
+                    <textarea id="serviceDescription" class="form-textarea" required></textarea>
+                    <p class="form-hint">Décrivez en détail ce que vous proposez (compétences, expérience, etc.)</p>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Photos de votre travail</label>
+                    <div class="image-upload" id="imageUpload">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="upload-text">Glissez-déposez vos images ici</div>
+                        <div class="upload-hint">ou cliquez pour sélectionner (max 5 images)</div>
+                        <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
+                    </div>
+                    <div class="preview-grid" id="previewGrid"></div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" onclick="prevStep(2)">Précédent</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(2)">Suivant</button>
+                </div>
+            </div>
+
+            <!-- Étape 3 - Tarifs et Disponibilités -->
+            <div class="form-step" id="step3">
+                <h2 class="form-title">Tarifs et Disponibilités</h2>
+                
+                <div class="form-group">
+                    <label for="pricingModel" class="form-label">Type de Tarification <span class="required">*</span></label>
+                    <select id="pricingModel" class="form-select" required>
+                        <option value="">Sélectionnez un modèle</option>
+                        <option value="fixed">Prix fixe</option>
+                        <option value="hourly">Tarif horaire</option>
+                        <option value="daily">Tarif journalier</option>
+                        <option value="custom">Sur devis</option>
+                    </select>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group" id="priceInputGroup" style="display: none;">
+                        <label for="price" class="form-label">Montant <span class="required">*</span></label>
+                        <div style="position: relative;">
+                            <input type="number" id="price" class="form-input" style="padding-left: 2.5rem;">
+                            <span style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #6B7280;">FCFA</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" id="hourlyRateGroup" style="display: none;">
+                        <label for="hourlyRate" class="form-label">Tarif horaire <span class="required">*</span></label>
+                        <div style="position: relative;">
+                            <input type="number" id="hourlyRate" class="form-input" style="padding-left: 2.5rem;">
+                            <span style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #6B7280;">FCFA/h</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Disponibilités <span class="required">*</span></label>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" name="availability" value="lundi"> Lundi
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" name="availability" value="mardi"> Mardi
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" name="availability" value="mercredi"> Mercredi
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" name="availability" value="jeudi"> Jeudi
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" name="availability" value="vendredi"> Vendredi
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" name="availability" value="samedi"> Samedi
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" name="availability" value="dimanche"> Dimanche
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" onclick="prevStep(3)">Précédent</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(3)">Suivant</button>
+                </div>
+            </div>
+
+            <!-- Étape 4 - Validation -->
+            <div class="form-step" id="step4">
+                <h2 class="form-title">Validation</h2>
+                
+                <div class="form-group">
+                    <div style="background: #F3F4F6; padding: 1.5rem; border-radius: 8px;">
+                        <h3 style="margin-bottom: 1rem; color: var(--primary);">Récapitulatif</h3>
+                        
+                        <div id="summaryContent" style="line-height: 2;">
+                            <!-- Le contenu sera généré par JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Conditions d'utilisation</label>
+                    <div style="max-height: 200px; overflow-y: auto; border: 1px solid #E5E7EB; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                        <p>En soumettant ce formulaire, vous acceptez :</p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>Les conditions générales d'utilisation de AfriServices</li>
+                            <li>Que vos informations soient visibles par les utilisateurs</li>
+                            <li>Une commission de 10% sur chaque transaction</li>
+                            <li>De fournir des services professionnels de qualité</li>
+                        </ul>
+                    </div>
+                    
+                    <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer;">
+                        <input type="checkbox" id="termsAgreement" style="margin-top: 0.25rem;">
+                        <span>J'accepte les conditions d'utilisation <span class="required">*</span></span>
+                    </label>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" onclick="prevStep(4)">Précédent</button>
+                    <button type="button" class="btn btn-primary" id="submitForm">Soumettre mon service</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Avantages -->
+    <section class="benefits-section">
+        <div class="benefits-container">
+            <h2 class="section-title">Pourquoi devenir prestataire ?</h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="benefit-title">Plus de clients</h3>
+                    <p>Augmentez votre visibilité et touchez des milliers de clients potentiels</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-euro-sign"></i>
+                    </div>
+                    <h3 class="benefit-title">Gains supplémentaires</h3>
+                    <p>Générez des revenus complémentaires en monétisant vos compétences</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="benefit-title">Flexibilité</h3>
+                    <p>Travaillez quand vous voulez, selon vos disponibilités</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="index.html" class="footer-link">Accueil</a>
+            <a href="services.html" class="footer-link">Services</a>
+            <a href="prestataires.html" class="footer-link">Prestataires</a>
+            <a href="contact.html" class="footer-link">Contact</a>
+            <a href="conditions.html" class="footer-link">Conditions</a>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2024 AfriServices. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Gestion des étapes du formulaire
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function updateStepProgress() {
+            const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
+            document.getElementById('stepProgress').style.width = `${progress}%`;
+            
+            // Mettre à jour les classes des étapes
+            document.querySelectorAll('.step').forEach((step, index) => {
+                if (index + 1 < currentStep) {
+                    step.classList.remove('active');
+                    step.classList.add('completed');
+                } else if (index + 1 === currentStep) {
+                    step.classList.add('active');
+                    step.classList.remove('completed');
+                } else {
+                    step.classList.remove('active', 'completed');
+                }
+            });
+        }
+
+        function showStep(stepNumber) {
+            document.querySelectorAll('.form-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            document.getElementById(`step${stepNumber}`).classList.add('active');
+            currentStep = stepNumber;
+            updateStepProgress();
+        }
+
+        function nextStep(current) {
+            if (validateStep(current)) {
+                showStep(current + 1);
+                
+                // Générer le récapitulatif à la dernière étape
+                if (current + 1 === totalSteps) {
+                    generateSummary();
+                }
+            }
+        }
+
+        function prevStep(current) {
+            showStep(current - 1);
+        }
+
+        function validateStep(step) {
+            let isValid = true;
+            
+            // Validation de l'étape 1
+            if (step === 1) {
+                const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'location'];
+                requiredFields.forEach(field => {
+                    const element = document.getElementById(field);
+                    if (!element.value.trim()) {
+                        element.style.borderColor = 'var(--accent)';
+                        isValid = false;
+                    } else {
+                        element.style.borderColor = '#E5E7EB';
+                    }
+                });
+                
+                if (!isValid) {
+                    alert('Veuillez remplir tous les champs obligatoires');
+                }
+            }
+            
+            // Validation de l'étape 2
+            if (step === 2) {
+                const requiredFields = ['serviceTitle', 'serviceCategory', 'serviceDescription'];
+                requiredFields.forEach(field => {
+                    const element = document.getElementById(field);
+                    if (!element.value.trim()) {
+                        element.style.borderColor = 'var(--accent)';
+                        isValid = false;
+                    } else {
+                        element.style.borderColor = '#E5E7EB';
+                    }
+                });
+                
+                if (!isValid) {
+                    alert('Veuillez remplir tous les champs obligatoires');
+                }
+            }
+            
+            // Validation de l'étape 3
+            if (step === 3) {
+                const pricingModel = document.getElementById('pricingModel').value;
+                let priceValid = true;
+                
+                if (pricingModel === 'fixed' && !document.getElementById('price').value) {
+                    priceValid = false;
+                } else if (pricingModel === 'hourly' && !document.getElementById('hourlyRate').value) {
+                    priceValid = false;
+                }
+                
+                if (!pricingModel || !priceValid) {
+                    alert('Veuillez sélectionner un modèle de tarification et renseigner le montant');
+                    isValid = false;
+                }
+                
+                const availabilityChecked = document.querySelectorAll('input[name="availability"]:checked').length > 0;
+                if (!availabilityChecked) {
+                    alert('Veuillez sélectionner au moins un jour de disponibilité');
+                    isValid = false;
+                }
+            }
+            
+            return isValid;
+        }
+
+        function generateSummary() {
+            const summaryContent = document.getElementById('summaryContent');
+            let html = `
+                <p><strong>Nom :</strong> ${document.getElementById('firstName').value} ${document.getElementById('lastName').value}</p>
+                <p><strong>Email :</strong> ${document.getElementById('email').value}</p>
+                <p><strong>Téléphone :</strong> ${document.getElementById('phone').value}</p>
+                <p><strong>Localisation :</strong> ${document.getElementById('location').options[document.getElementById('location').selectedIndex].text}</p>
+                <hr style="margin: 1rem 0; border-color: #E5E7EB;">
+                <p><strong>Service :</strong> ${document.getElementById('serviceTitle').value}</p>
+                <p><strong>Catégorie :</strong> ${document.getElementById('serviceCategory').options[document.getElementById('serviceCategory').selectedIndex].text}</p>
+                <p><strong>Description :</strong> ${document.getElementById('serviceDescription').value.substring(0, 100)}...</p>
+                <hr style="margin: 1rem 0; border-color: #E5E7EB;">
+            `;
+            
+            const pricingModel = document.getElementById('pricingModel').value;
+            if (pricingModel === 'fixed') {
+                html += `<p><strong>Tarif :</strong> ${document.getElementById('price').value} FCFA (forfait)</p>`;
+            } else if (pricingModel === 'hourly') {
+                html += `<p><strong>Tarif :</strong> ${document.getElementById('hourlyRate').value} FCFA/heure</p>`;
+            } else {
+                html += `<p><strong>Tarif :</strong> Sur devis</p>`;
+            }
+            
+            const availability = [];
+            document.querySelectorAll('input[name="availability"]:checked').forEach(checkbox => {
+                availability.push(checkbox.value);
+            });
+            html += `<p><strong>Disponibilités :</strong> ${availability.join(', ')}</p>`;
+            
+            summaryContent.innerHTML = html;
+        }
+
+        // Gestion de l'upload d'images
+        document.getElementById('imageUpload').addEventListener('click', function() {
+            document.getElementById('fileInput').click();
+        });
+
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const files = e.target.files;
+            const previewGrid = document.getElementById('previewGrid');
+            
+            // Limiter à 5 images
+            if (files.length > 5) {
+                alert('Vous ne pouvez uploader que 5 images maximum');
+                return;
+            }
+            
+            previewGrid.innerHTML = '';
+            
+            for (let i = 0; i < Math.min(files.length, 5); i++) {
+                const file = files[i];
+                if (!file.type.match('image.*')) continue;
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const previewItem = document.createElement('div');
+                    previewItem.className = 'preview-item';
+                    previewItem.innerHTML = `
+                        <img src="${e.target.result}" class="preview-image" alt="Preview">
+                        <div class="remove-image" onclick="removeImage(this.parentElement)">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    `;
+                    previewGrid.appendChild(previewItem);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function removeImage(element) {
+            element.remove();
+        }
+
+        // Gestion dynamique des champs de tarification
+        document.getElementById('pricingModel').addEventListener('change', function() {
+            const value = this.value;
+            
+            document.getElementById('priceInputGroup').style.display = 'none';
+            document.getElementById('hourlyRateGroup').style.display = 'none';
+            
+            if (value === 'fixed') {
+                document.getElementById('priceInputGroup').style.display = 'block';
+            } else if (value === 'hourly') {
+                document.getElementById('hourlyRateGroup').style.display = 'block';
+            }
+        });
+
+        // Soumission du formulaire
+        document.getElementById('submitForm').addEventListener('click', function() {
+            if (!document.getElementById('termsAgreement').checked) {
+                alert('Veuillez accepter les conditions d\'utilisation');
+                return;
+            }
+            
+            // Ici vous ajouteriez la logique de soumission réelle (AJAX, etc.)
+            alert('Votre service a été soumis avec succès ! Notre équipe vous contactera sous 24h.');
+            // window.location.href = 'services.html';
+        });
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStepProgress();
+        });
+    </script>
+</body>
+</html>
