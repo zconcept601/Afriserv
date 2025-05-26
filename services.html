@@ -82,7 +82,7 @@
             position: relative;
         }
         
-        .nav-link:hover {
+        .nav-link:hover, .nav-link.active {
             color: var(--primary);
         }
         
@@ -97,7 +97,7 @@
             transition: width 0.3s;
         }
         
-        .nav-link:hover::after {
+        .nav-link:hover::after, .nav-link.active::after {
             width: 100%;
         }
         
@@ -291,6 +291,8 @@
             text-decoration: none;
             font-size: 0.9rem;
             transition: all 0.3s;
+            cursor: pointer;
+            border: none;
         }
         
         .service-button:hover {
@@ -332,8 +334,118 @@
             transition: color 0.3s;
         }
         
-        .mobile-nav-link:hover {
+        .mobile-nav-link:hover, .mobile-nav-link.active {
             color: var(--primary);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            animation: fadeInUp 0.3s ease;
+        }
+        
+        .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+            transition: color 0.3s;
+            background: none;
+            border: none;
+        }
+        
+        .close-button:hover {
+            color: var(--accent);
+        }
+        
+        .modal-title {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .modal-provider {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+        
+        .modal-rating {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .modal-price {
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .modal-description {
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+        
+        .modal-contact {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .modal-contact:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         /* Responsive */
@@ -481,7 +593,7 @@
                         </div>
                         <div class="service-price">À partir de 150 000 FCFA</div>
                         <p class="service-description">Création de sites web professionnels sur mesure avec technologies modernes (HTML5, CSS3, JavaScript, React).</p>
-                        <a href="#" class="service-button">Voir détails</a>
+                        <button class="service-button" data-modal="modal1">Voir détails</button>
                     </div>
                 </div>
                 
@@ -504,7 +616,7 @@
                         </div>
                         <div class="service-price">À partir de 75 000 FCFA/mois</div>
                         <p class="service-description">Gestion professionnelle de votre page Facebook avec création de contenu et modération des commentaires.</p>
-                        <a href="#" class="service-button">Voir détails</a>
+                        <button class="service-button" data-modal="modal2">Voir détails</button>
                     </div>
                 </div>
                 
@@ -527,7 +639,7 @@
                         </div>
                         <div class="service-price">À partir de 50 000 FCFA</div>
                         <p class="service-description">Installation et dépannage électrique par un électricien certifié avec garantie sur les travaux.</p>
-                        <a href="#" class="service-button">Voir détails</a>
+                        <button class="service-button" data-modal="modal3">Voir détails</button>
                     </div>
                 </div>
                 
@@ -550,7 +662,7 @@
                         </div>
                         <div class="service-price">À partir de 25 000 FCFA</div>
                         <p class="service-description">Intervention rapide pour tous vos problèmes de plomberie avec pièces de qualité.</p>
-                        <a href="#" class="service-button">Voir détails</a>
+                        <button class="service-button" data-modal="modal4">Voir détails</button>
                     </div>
                 </div>
                 
@@ -567,4 +679,360 @@
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
-                            <i class
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(41)</span>
+                        </div>
+                        <div class="service-price">À partir de 35 000 FCFA</div>
+                        <p class="service-description">Création de vêtements traditionnels et modernes sur mesure avec tissus de qualité.</p>
+                        <button class="service-button" data-modal="modal5">Voir détails</button>
+                    </div>
+                </div>
+                
+                <!-- Service 6 -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Déménagement" class="service-image">
+                    <div class="service-content">
+                        <h3 class="service-title">Service de déménagement</h3>
+                        <div class="service-provider">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Ibrahim Sarr" class="provider-avatar">
+                            <span>Ibrahim Sarr</span>
+                        </div>
+                        <div class="service-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(15)</span>
+                        </div>
+                        <div class="service-price">À partir de 100 000 FCFA</div>
+                        <p class="service-description">Déménagement professionnel avec véhicule adapté et personnel expérimenté pour un transport sécurisé.</p>
+                        <button class="service-button" data-modal="modal6">Voir détails</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals for service details -->
+    <!-- Modal 1 - Développement Web -->
+    <div class="modal" id="modal1">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 class="modal-title">Développement Web</h2>
+            <div class="modal-provider">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Jean Dupont" class="modal-avatar">
+                <div>
+                    <h3>Jean Dupont</h3>
+                    <p>Développeur Web depuis 2015</p>
+                </div>
+            </div>
+            <div class="modal-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>(24 avis)</span>
+            </div>
+            <div class="modal-price">À partir de 150 000 FCFA</div>
+            <p class="modal-description">
+                Création de sites web professionnels sur mesure avec les dernières technologies (HTML5, CSS3, JavaScript, React). 
+                Je propose des solutions adaptées à vos besoins, qu'il s'agisse d'un site vitrine, d'un e-commerce ou d'une application web complexe.
+                <br><br>
+                Services inclus :
+                <ul>
+                    <li>Conception responsive adaptée à tous les appareils</li>
+                    <li>Optimisation SEO</li>
+                    <li>Maintenance et support</li>
+                    <li>Formation à l'utilisation</li>
+                </ul>
+            </p>
+            <a href="#" class="modal-contact">Contacter le professionnel</a>
+        </div>
+    </div>
+
+    <!-- Modal 2 - Gestion Facebook -->
+    <div class="modal" id="modal2">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 class="modal-title">Gestion Facebook</h2>
+            <div class="modal-provider">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Aïcha Koné" class="modal-avatar">
+                <div>
+                    <h3>Aïcha Koné</h3>
+                    <p>Community Manager depuis 2018</p>
+                </div>
+            </div>
+            <div class="modal-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>(18 avis)</span>
+            </div>
+            <div class="modal-price">À partir de 75 000 FCFA/mois</div>
+            <p class="modal-description">
+                Gestion professionnelle de votre page Facebook avec création de contenu régulier et modération des commentaires.
+                Je vous aide à développer votre présence sur les réseaux sociaux et à engager votre audience.
+                <br><br>
+                Services inclus :
+                <ul>
+                    <li>Création et optimisation de votre page Facebook</li>
+                    <li>Publication de 3 à 5 posts par semaine</li>
+                    <li>Réponse aux commentaires et messages</li>
+                    <li>Analyse mensuelle des performances</li>
+                    <li>Création de visuels attractifs</li>
+                </ul>
+            </p>
+            <a href="#" class="modal-contact">Contacter le professionnel</a>
+        </div>
+    </div>
+
+    <!-- Modal 3 - Électricité -->
+    <div class="modal" id="modal3">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 class="modal-title">Installation électrique</h2>
+            <div class="modal-provider">
+                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Moussa Diarra" class="modal-avatar">
+                <div>
+                    <h3>Moussa Diarra</h3>
+                    <p>Électricien certifié depuis 2012</p>
+                </div>
+            </div>
+            <div class="modal-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span>(32 avis)</span>
+            </div>
+            <div class="modal-price">À partir de 50 000 FCFA</div>
+            <p class="modal-description">
+                Installation et dépannage électrique par un électricien certifié avec garantie sur les travaux.
+                Je propose des interventions rapides et efficaces pour tous vos besoins en électricité.
+                <br><br>
+                Services proposés :
+                <ul>
+                    <li>Installation électrique neuve</li>
+                    <li>Dépannage et réparation</li>
+                    <li>Mise aux normes</li>
+                    <li>Installation de prises et interrupteurs</li>
+                    <li>Pose de luminaires</li>
+                    <li>Tableau électrique</li>
+                </ul>
+            </p>
+            <a href="#" class="modal-contact">Contacter le professionnel</a>
+        </div>
+    </div>
+
+    <!-- Modal 4 - Plomberie -->
+    <div class="modal" id="modal4">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 class="modal-title">Réparation plomberie</h2>
+            <div class="modal-provider">
+                <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Paul Akpa" class="modal-avatar">
+                <div>
+                    <h3>Paul Akpa</h3>
+                    <p>Plombier professionnel depuis 2010</p>
+                </div>
+            </div>
+            <div class="modal-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span>(29 avis)</span>
+            </div>
+            <div class="modal-price">À partir de 25 000 FCFA</div>
+            <p class="modal-description">
+                Intervention rapide pour tous vos problèmes de plomberie avec des pièces de qualité.
+                Je propose des solutions durables pour vos fuites, canalisations bouchées et installations sanitaires.
+                <br><br>
+                Services proposés :
+                <ul>
+                    <li>Dépannage de fuites</li>
+                    <li>Débouchage de canalisations</li>
+                    <li>Installation sanitaire</li>
+                    <li>Réparation de chauffe-eau</li>
+                    <li>Remplacement de robinetterie</li>
+                    <li>Installation de WC, douche, évier</li>
+                </ul>
+            </p>
+            <a href="#" class="modal-contact">Contacter le professionnel</a>
+        </div>
+    </div>
+
+    <!-- Modal 5 - Couture -->
+    <div class="modal" id="modal5">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 class="modal-title">Couture sur mesure</h2>
+            <div class="modal-provider">
+                <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Fatou Ndiaye" class="modal-avatar">
+                <div>
+                    <h3>Fatou Ndiaye</h3>
+                    <p>Couturière professionnelle depuis 2008</p>
+                </div>
+            </div>
+            <div class="modal-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>(41 avis)</span>
+            </div>
+            <div class="modal-price">À partir de 35 000 FCFA</div>
+            <p class="modal-description">
+                Création de vêtements traditionnels et modernes sur mesure avec tissus de qualité.
+                Je propose des designs personnalisés adaptés à vos goûts et à votre morphologie.
+                <br><br>
+                Services proposés :
+                <ul>
+                    <li>Vêtements traditionnels sur mesure</li>
+                    <li>Robes de soirée et mariage</li>
+                    <li>Costumes et chemises pour hommes</li>
+                    <li>Réparation et ajustement de vêtements</li>
+                    <li>Conseil en choix de tissus</li>
+                </ul>
+            </p>
+            <a href="#" class="modal-contact">Contacter le professionnel</a>
+        </div>
+    </div>
+
+    <!-- Modal 6 - Déménagement -->
+    <div class="modal" id="modal6">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 class="modal-title">Service de déménagement</h2>
+            <div class="modal-provider">
+                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Ibrahim Sarr" class="modal-avatar">
+                <div>
+                    <h3>Ibrahim Sarr</h3>
+                    <p>Service de déménagement depuis 2014</p>
+                </div>
+            </div>
+            <div class="modal-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>(15 avis)</span>
+            </div>
+            <div class="modal-price">À partir de 100 000 FCFA</div>
+            <p class="modal-description">
+                Déménagement professionnel avec véhicule adapté et personnel expérimenté pour un transport sécurisé de vos biens.
+                Nous prenons soin de vos affaires comme si c'étaient les nôtres.
+                <br><br>
+                Services inclus :
+                <ul>
+                    <li>Transport avec camion adapté</li>
+                    <li>Personnel expérimenté</li>
+                    <li>Emballage et protection des meubles</li>
+                    <li>Montage/Démontage de meubles</li>
+                    <li>Assurance des biens transportés</li>
+                </ul>
+            </p>
+            <a href="#" class="modal-contact">Contacter le professionnel</a>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gestion du menu mobile
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                
+                // Changer l'icône du bouton
+                const icon = mobileMenuBtn.querySelector('i');
+                if (mobileMenu.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+            
+            // Fermer le menu mobile lorsqu'un lien est cliqué
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                    mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                });
+            });
+            
+            // Gestion de la recherche
+            const searchButton = document.querySelector('.search-button');
+            searchButton.addEventListener('click', function() {
+                const query = document.querySelector('.search-input').value;
+                if (query.trim() !== '') {
+                    alert('Recherche pour: ' + query); // À remplacer par une vraie recherche
+                    // window.location.href = `services.html?search=${encodeURIComponent(query)}`;
+                }
+            });
+            
+            // Permettre la recherche avec la touche Entrée
+            document.querySelector('.search-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchButton.click();
+                }
+            });
+
+            // Gestion des modales
+            const modalButtons = document.querySelectorAll('[data-modal]');
+            const modals = document.querySelectorAll('.modal');
+            const closeButtons = document.querySelectorAll('.close-button');
+            
+            // Ouvrir la modale correspondante
+            modalButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const modalId = this.getAttribute('data-modal');
+                    document.getElementById(modalId).classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Empêcher le défilement
+                });
+            });
+            
+            // Fermer la modale avec le bouton ×
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.closest('.modal').classList.remove('active');
+                    document.body.style.overflow = ''; // Rétablir le défilement
+                });
+            });
+
+            // Fermer la modale en cliquant à l'extérieur
+            modals.forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
+
+            // Fermer la modale avec la touche ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    modals.forEach(modal => {
+                        modal.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
