@@ -898,6 +898,13 @@
                 icon.classList.add('fa-bars');
             }
         });
+        modalButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const modalId = this.getAttribute('data-modal');
+                document.getElementById(modalId).classList.add('active');
+                document.body.style.overflow = 'hidden'; // Empêcher le défilement
+            });
+          });
         
         // Fermer le menu mobile lorsqu'un lien est cliqué
         document.querySelectorAll('.mobile-nav-link').forEach(link => {
