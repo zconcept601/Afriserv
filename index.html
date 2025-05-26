@@ -27,6 +27,89 @@
             line-height: 1.6;
         }
         
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1rem;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--dark);
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+        
         /* Header Hero */
         .hero {
             position: relative;
@@ -34,6 +117,7 @@
             overflow: hidden;
             display: flex;
             align-items: center;
+            margin-top: 70px; /* Pour compenser le header fixe */
         }
         
         .hero-image {
@@ -302,8 +386,55 @@
             }
         }
         
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            padding: 1rem;
+            transform: translateY(-150%);
+            transition: transform 0.3s ease;
+            z-index: 999;
+        }
+        
+        .mobile-menu.active {
+            transform: translateY(0);
+        }
+        
+        .mobile-nav-menu {
+            list-style: none;
+        }
+        
+        .mobile-nav-item {
+            margin-bottom: 1rem;
+        }
+        
+        .mobile-nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 1.1rem;
+            display: block;
+            padding: 0.5rem;
+            transition: color 0.3s;
+        }
+        
+        .mobile-nav-link:hover {
+            color: var(--primary);
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
             .hero-title {
                 font-size: 2.5rem;
             }
@@ -329,9 +460,48 @@
                 flex-direction: column;
             }
         }
+        
+        @media (min-width: 769px) {
+            .mobile-menu {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-hands-helping logo-icon"></i>
+                <span class="logo-text">AfriServices</span>
+            </a>
+            
+            <nav class="desktop-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Accueil</a></li>
+                    <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="mon-compte.html" class="nav-link">Mon compte</a></li>
+                </ul>
+            </nav>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-menu">
+                <li class="mobile-nav-item"><a href="index.html" class="mobile-nav-link">Accueil</a></li>
+                <li class="mobile-nav-item"><a href="#services" class="mobile-nav-link">Services</a></li>
+                <li class="mobile-nav-item"><a href="contact.html" class="mobile-nav-link">Contact</a></li>
+                <li class="mobile-nav-item"><a href="mon-compte.html" class="mobile-nav-link">Mon compte</a></li>
+            </ul>
+        </div>
+    </header>
+    
     <!-- Section Hero -->
     <section class="hero">
         <img src="https://images.unsplash.com/photo-1605106702734-205df224ecce?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Ouvrier en chantier" class="hero-image">
@@ -454,7 +624,13 @@
                     window.location.href = `services.html?search=${encodeURIComponent(query)}`;
                 }
             });
-        });
-    </script>
-</body>
-</html>
+            
+            // Gestion du menu mobile
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                
+                // Changer l'icône du bouton
+                const icon = mobileMenuBt
