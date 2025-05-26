@@ -425,6 +425,101 @@
             color: var(--primary);
         }
         
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+        }
+        
+        .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+            transition: color 0.3s;
+        }
+        
+        .close-button:hover {
+            color: var(--accent);
+        }
+        
+        .modal-title {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .modal-provider {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+        
+        .modal-rating {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .modal-price {
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .modal-description {
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+        
+        .modal-contact {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .modal-contact:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .nav-menu {
@@ -458,6 +553,10 @@
             
             .steps-container {
                 flex-direction: column;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
             }
         }
         
@@ -531,6 +630,7 @@
                     <div class="service-content">
                         <h3 class="service-title">Développement Web</h3>
                         <p class="service-description">Sites vitrines, e-commerce et applications sur mesure par des experts locaux</p>
+                        <button class="service-button" data-modal="modal1">Voir détails</button>
                     </div>
                 </div>
                 
@@ -540,6 +640,7 @@
                     <div class="service-content">
                         <h3 class="service-title">Gestion Facebook</h3>
                         <p class="service-description">Création et animation professionnelle de vos pages sociales</p>
+                        <button class="service-button" data-modal="modal2">Voir détails</button>
                     </div>
                 </div>
                 
@@ -549,6 +650,7 @@
                     <div class="service-content">
                         <h3 class="service-title">Électricité</h3>
                         <p class="service-description">Installation et dépannage par des électriciens certifiés</p>
+                        <button class="service-button" data-modal="modal3">Voir détails</button>
                     </div>
                 </div>
                 
@@ -558,79 +660,10 @@
                     <div class="service-content">
                         <h3 class="service-title">Plomberie</h3>
                         <p class="service-description">Interventions rapides pour tous vos problèmes de plomberie</p>
+                        <button class="service-button" data-modal="modal4">Voir détails</button>
                     </div>
                 </div>
             </div>
             
             <a href="services.html" class="discover-button">Découvrir tous les services</a>
-        </div>
-    </section>
-    
-    <!-- Section Fonctionnement -->
-    <section class="how-it-works">
-        <h2 class="section-title">Comment ça marche ?</h2>
-        <div class="steps-container">
-            <!-- Étape 1 -->
-            <div class="step">
-                <div class="step-icon">
-                    <i class="fas fa-search"></i>
-                </div>
-                <h3 class="step-title">1. Recherchez</h3>
-                <p>Trouvez le service dont vous avez besoin grâce à notre moteur de recherche intelligent</p>
-            </div>
-            
-            <!-- Étape 2 -->
-            <div class="step">
-                <div class="step-icon">
-                    <i class="fas fa-user-check"></i>
-                </div>
-                <h3 class="step-title">2. Comparez</h3>
-                <p>Consultez les profils, avis et tarifs des professionnels disponibles</p>
-            </div>
-            
-            <!-- Étape 3 -->
-            <div class="step">
-                <div class="step-icon">
-                    <i class="fas fa-handshake"></i>
-                </div>
-                <h3 class="step-title">3. Contactez</h3>
-                <p>Discutez directement via WhatsApp et convenez des détails</p>
-            </div>
-        </div>
-        
-        <a href="devenir-prestataire.html" class="submit-service">Proposer un service</a>
-    </section>
-    
-    <script>
-        // Animation au scroll
-        document.addEventListener('DOMContentLoaded', function() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate');
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            document.querySelectorAll('.step, .service-card').forEach(el => {
-                observer.observe(el);
-            });
-            
-            // Gestion de la recherche
-            const searchButton = document.querySelector('.search-button');
-            searchButton.addEventListener('click', function() {
-                const query = document.querySelector('.search-input').value;
-                if (query.trim() !== '') {
-                    window.location.href = `services.html?search=${encodeURIComponent(query)}`;
-                }
-            });
-            
-            // Gestion du menu mobile
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileMenu = document.getElementById('mobileMenu');
-            
-            mobileMenuBtn.addEventListener('click', function() {
-                mobileMenu.classList.toggle('active');
-                
-                // Changer l'icône du bouton
-                const icon = mobileMenuBt
+   
