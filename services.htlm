@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Services | AfriServices</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2E86AB;
+            --secondary: #F18F01;
+            --accent: #C73E1D;
+            --dark: #2B2D42;
+            --light: #F7F7FF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1rem;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--dark);
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            font-size: 2.5rem;
+        }
+        
+        .search-container {
+            display: flex;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 1.2rem 1.5rem;
+            border: none;
+            font-size: 1.1rem;
+        }
+        
+        .search-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 2rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .search-button:hover {
+            background: var(--accent);
+        }
+        
+        /* Categories */
+        .categories-section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--dark);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .category-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .category-content {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .category-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .category-count {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        /* All Services */
+        .services-section {
+            margin-bottom: 3rem;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .service-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .service-provider {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+        
+        .provider-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            object-fit: cover;
+        }
+        
+        .service-rating {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .service-price {
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .service-description {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .service-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .service-button:hover {
+            background: var(--accent);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            padding: 1rem;
+            transform: translateY(-150%);
+            transition: transform 0.3s ease;
+            z-index: 999;
+        }
+        
+        .mobile-menu.active {
+            transform: translateY(0);
+        }
+        
+        .mobile-nav-menu {
+            list-style: none;
+        }
+        
+        .mobile-nav-item {
+            margin-bottom: 1rem;
+        }
+        
+        .mobile-nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 1.1rem;
+            display: block;
+            padding: 0.5rem;
+            transition: color 0.3s;
+        }
+        
+        .mobile-nav-link:hover {
+            color: var(--primary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .main-content {
+                margin-top: 80px;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .search-container {
+                flex-direction: column;
+                border-radius: 15px;
+            }
+            
+            .search-input {
+                padding: 1rem;
+            }
+            
+            .search-button {
+                padding: 1rem;
+            }
+            
+            .categories-grid,
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-hands-helping logo-icon"></i>
+                <span class="logo-text">AfriServices</span>
+            </a>
+            
+            <nav class="desktop-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Accueil</a></li>
+                    <li class="nav-item"><a href="services.html" class="nav-link active">Services</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="mon-compte.html" class="nav-link">Mon compte</a></li>
+                </ul>
+            </nav>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-menu">
+                <li class="mobile-nav-item"><a href="index.html" class="mobile-nav-link">Accueil</a></li>
+                <li class="mobile-nav-item"><a href="services.html" class="mobile-nav-link active">Services</a></li>
+                <li class="mobile-nav-item"><a href="contact.html" class="mobile-nav-link">Contact</a></li>
+                <li class="mobile-nav-item"><a href="mon-compte.html" class="mobile-nav-link">Mon compte</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 class="page-title">Tous nos services</h1>
+        
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Rechercher un service...">
+            <button class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        
+        <!-- Categories Section -->
+        <section class="categories-section">
+            <h2 class="section-title">Catégories populaires</h2>
+            <div class="categories-grid">
+                <!-- Category 1 -->
+                <a href="#informatique" class="category-card">
+                    <img src="https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Informatique" class="category-image">
+                    <div class="category-content">
+                        <h3 class="category-title">Informatique</h3>
+                        <p class="category-count">42 services</p>
+                    </div>
+                </a>
+                
+                <!-- Category 2 -->
+                <a href="#bricolage" class="category-card">
+                    <img src="https://images.unsplash.com/photo-1605106702734-205df224ecce?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Bricolage" class="category-image">
+                    <div class="category-content">
+                        <h3 class="category-title">Bricolage</h3>
+                        <p class="category-count">35 services</p>
+                    </div>
+                </a>
+                
+                <!-- Category 3 -->
+                <a href="#menage" class="category-card">
+                    <img src="https://images.unsplash.com/photo-1598520106830-8c45c2035460?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Ménage" class="category-image">
+                    <div class="category-content">
+                        <h3 class="category-title">Ménage</h3>
+                        <p class="category-count">28 services</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+        
+        <!-- All Services Section -->
+        <section class="services-section">
+            <h2 class="section-title">Tous les services disponibles</h2>
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Développement Web" class="service-image">
+                    <div class="service-content">
+                        <h3 class="service-title">Développement Web</h3>
+                        <div class="service-provider">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Jean Dupont" class="provider-avatar">
+                            <span>Jean Dupont</span>
+                        </div>
+                        <div class="service-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(24)</span>
+                        </div>
+                        <div class="service-price">À partir de 150 000 FCFA</div>
+                        <p class="service-description">Création de sites web professionnels sur mesure avec technologies modernes (HTML5, CSS3, JavaScript, React).</p>
+                        <a href="#" class="service-button">Voir détails</a>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Gestion Facebook" class="service-image">
+                    <div class="service-content">
+                        <h3 class="service-title">Gestion Facebook</h3>
+                        <div class="service-provider">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Aïcha Koné" class="provider-avatar">
+                            <span>Aïcha Koné</span>
+                        </div>
+                        <div class="service-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(18)</span>
+                        </div>
+                        <div class="service-price">À partir de 75 000 FCFA/mois</div>
+                        <p class="service-description">Gestion professionnelle de votre page Facebook avec création de contenu et modération des commentaires.</p>
+                        <a href="#" class="service-button">Voir détails</a>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1605152276897-4f618f831968?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Électricité" class="service-image">
+                    <div class="service-content">
+                        <h3 class="service-title">Installation électrique</h3>
+                        <div class="service-provider">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Moussa Diarra" class="provider-avatar">
+                            <span>Moussa Diarra</span>
+                        </div>
+                        <div class="service-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(32)</span>
+                        </div>
+                        <div class="service-price">À partir de 50 000 FCFA</div>
+                        <p class="service-description">Installation et dépannage électrique par un électricien certifié avec garantie sur les travaux.</p>
+                        <a href="#" class="service-button">Voir détails</a>
+                    </div>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Plomberie" class="service-image">
+                    <div class="service-content">
+                        <h3 class="service-title">Réparation plomberie</h3>
+                        <div class="service-provider">
+                            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Paul Akpa" class="provider-avatar">
+                            <span>Paul Akpa</span>
+                        </div>
+                        <div class="service-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(29)</span>
+                        </div>
+                        <div class="service-price">À partir de 25 000 FCFA</div>
+                        <p class="service-description">Intervention rapide pour tous vos problèmes de plomberie avec pièces de qualité.</p>
+                        <a href="#" class="service-button">Voir détails</a>
+                    </div>
+                </div>
+                
+                <!-- Service 5 -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Couture" class="service-image">
+                    <div class="service-content">
+                        <h3 class="service-title">Couture sur mesure</h3>
+                        <div class="service-provider">
+                            <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Fatou Ndiaye" class="provider-avatar">
+                            <span>Fatou Ndiaye</span>
+                        </div>
+                        <div class="service-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class
