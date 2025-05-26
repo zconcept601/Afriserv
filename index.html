@@ -603,7 +603,7 @@
             <nav class="desktop-nav">
                 <ul class="nav-menu">
                     <li class="nav-item"><a href="index.html" class="nav-link">Accueil</a></li>
-                    <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
                     <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
                     <li class="nav-item"><a href="mon-compte.html" class="nav-link">Mon compte</a></li>
                 </ul>
@@ -618,7 +618,7 @@
         <div class="mobile-menu" id="mobileMenu">
             <ul class="mobile-nav-menu">
                 <li class="mobile-nav-item"><a href="index.html" class="mobile-nav-link">Accueil</a></li>
-                <li class="mobile-nav-item"><a href="#services" class="mobile-nav-link">Services</a></li>
+                <li class="mobile-nav-item"><a href="services.html" class="mobile-nav-link">Services</a></li>
                 <li class="mobile-nav-item"><a href="contact.html" class="mobile-nav-link">Contact</a></li>
                 <li class="mobile-nav-item"><a href="mon-compte.html" class="mobile-nav-link">Mon compte</a></li>
             </ul>
@@ -631,7 +631,7 @@
         <div class="hero-content">
             <h1 class="hero-title">Vos besoins, notre réseau</h1>
             <p class="hero-subtitle">Trouvez en quelques clics le professionnel idéal pour tous vos projets, du montage de meuble à la création de site web</p>
-            <a href="#services" class="hero-cta">Trouver un service</a>
+            <a href="services.html" class="hero-cta">Trouver un service</a>
         </div>
     </section>
     
@@ -929,10 +929,11 @@
         });
         
         // Gestion des modales
-const modalButtons = document.querySelectorAll('[data-modal]');
-const modals = document.querySelectorAll('.modal');
-const closeButtons = document.querySelectorAll('.close-button');
-// Ouvrir la modale correspondante
+        const modalButtons = document.querySelectorAll('[data-modal]');
+        const modals = document.querySelectorAll('.modal');
+        const closeButtons = document.querySelectorAll('.close-button');
+        
+        // Ouvrir la modale correspondante
         modalButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const modalId = this.getAttribute('data-modal');
@@ -940,33 +941,34 @@ const closeButtons = document.querySelectorAll('.close-button');
                 document.body.style.overflow = 'hidden'; // Empêcher le défilement
             });
         });
-// Fermer la modale avec le bouton ×
-closeButtons.forEach(button => {
-    button.addEventListener('click', function() {
-        this.closest('.modal').classList.remove('active');
-        document.body.style.overflow = ''; // Rétablir le défilement
-    });
-});
-
-// Fermer la modale en cliquant à l'extérieur
-modals.forEach(modal => {
-    modal.addEventListener('click', function(e) {
-        if (e.target === this) {
-            this.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-    });
-});
-
-// Fermer la modale avec la touche ESC
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        modals.forEach(modal => {
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
+        
+        // Fermer la modale avec le bouton ×
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                this.closest('.modal').classList.remove('active');
+                document.body.style.overflow = ''; // Rétablir le défilement
+            });
         });
-    }
-});
+
+        // Fermer la modale en cliquant à l'extérieur
+        modals.forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Fermer la modale avec la touche ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                modals.forEach(modal => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+        });
     </script>
 </body>
 </html>
