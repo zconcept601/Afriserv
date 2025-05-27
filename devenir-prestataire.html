@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #2563EB;
-            --secondary: #10B981;
-            --accent: #F59E0B;
-            --dark: #1F2937;
-            --light: #F3F4F6;
+            --primary: #2E86AB;
+            --secondary: #F18F01;
+            --accent: #C73E1D;
+            --dark: #2B2D42;
+            --light: #F7F7FF;
             --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
         }
 
@@ -19,46 +19,144 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
-            background-color: #f9fafb;
+            background-color: var(--light);
             color: var(--dark);
             line-height: 1.6;
         }
 
-        /* Navigation */
-        .main-nav {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
+        /* Header */
+        header {
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
             padding: 1rem;
+        }
+        
+        .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--dark);
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
         }
 
-        .logo {
-            font-weight: 800;
-            font-size: 1.5rem;
-            color: var(--primary);
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            padding: 1rem;
+            transform: translateY(-150%);
+            transition: transform 0.3s ease;
+            z-index: 999;
+        }
+        
+        .mobile-menu.active {
+            transform: translateY(0);
+        }
+        
+        .mobile-nav-menu {
+            list-style: none;
+        }
+        
+        .mobile-nav-item {
+            margin-bottom: 1rem;
+        }
+        
+        .mobile-nav-link {
             text-decoration: none;
+            color: var(--dark);
+            font-size: 1.1rem;
+            display: block;
+            padding: 0.5rem;
+            transition: color 0.3s;
+        }
+        
+        .mobile-nav-link:hover {
+            color: var(--primary);
         }
 
         /* Hero Section */
         .provider-hero {
-            background: var(--gradient);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 4rem 1rem;
+            padding: 6rem 1rem 4rem;
             text-align: center;
+            margin-top: 70px; /* Pour compenser le header fixe */
         }
 
         .hero-title {
@@ -210,7 +308,7 @@
         .form-textarea:focus {
             border-color: var(--primary);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            box-shadow: 0 0 0 3px rgba(46, 134, 171, 0.1);
         }
 
         .form-textarea {
@@ -246,7 +344,7 @@
 
         .image-upload:hover {
             border-color: var(--primary);
-            background: rgba(37, 99, 235, 0.05);
+            background: rgba(46, 134, 171, 0.05);
         }
 
         .upload-icon {
@@ -331,7 +429,7 @@
         }
 
         .btn-outline:hover {
-            background: rgba(37, 99, 235, 0.05);
+            background: rgba(46, 134, 171, 0.05);
         }
 
         .btn-primary {
@@ -340,7 +438,7 @@
         }
 
         .btn-primary:hover {
-            background: #1D4ED8;
+            background: #1a6a8a;
         }
 
         .btn-disabled {
@@ -429,6 +527,14 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+
             .form-row {
                 flex-direction: column;
                 gap: 0;
@@ -447,21 +553,47 @@
                 box-shadow: none;
             }
         }
+
+        @media (min-width: 769px) {
+            .mobile-menu {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <a href="index.html" class="logo">AfriServices</a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Accueil</a>
-                <a href="services.html" class="nav-link">Services</a>
-                <a href="prestataires.html" class="nav-link">Prestataires</a>
-                <a href="devenir-prestataire.html" class="nav-link active">Devenir Prestataire</a>
-            </div>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-hands-helping logo-icon"></i>
+                <span class="logo-text">AfriServices</span>
+            </a>
+            
+            <nav class="desktop-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Accueil</a></li>
+                    <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="mon-compte.html" class="nav-link">Mon compte</a></li>
+                </ul>
+            </nav>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-    </nav>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-menu">
+                <li class="mobile-nav-item"><a href="index.html" class="mobile-nav-link">Accueil</a></li>
+                <li class="mobile-nav-item"><a href="services.html" class="mobile-nav-link">Services</a></li>
+                <li class="mobile-nav-item"><a href="contact.html" class="mobile-nav-link">Contact</a></li>
+                <li class="mobile-nav-item"><a href="mon-compte.html" class="mobile-nav-link">Mon compte</a></li>
+            </ul>
+        </div>
+    </header>
 
     <!-- Hero Section -->
     <section class="provider-hero">
@@ -619,36 +751,14 @@
                         <label for="hourlyRate" class="form-label">Tarif horaire <span class="required">*</span></label>
                         <div style="position: relative;">
                             <input type="number" id="hourlyRate" class="form-input" style="padding-left: 2.5rem;">
-                            <span style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #6B7280;">FCFA/h</span>
+                            <span style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #6B7280;">FCFA</span>
                         </div>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label">Disponibilités <span class="required">*</span></label>
-                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-                        <label style="display: flex; align-items: center; gap: 0.5rem;">
-                            <input type="checkbox" name="availability" value="lundi"> Lundi
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 0.5rem;">
-                            <input type="checkbox" name="availability" value="mardi"> Mardi
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 0.5rem;">
-                            <input type="checkbox" name="availability" value="mercredi"> Mercredi
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 0.5rem;">
-                            <input type="checkbox" name="availability" value="jeudi"> Jeudi
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 0.5rem;">
-                            <input type="checkbox" name="availability" value="vendredi"> Vendredi
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 0.5rem;">
-                            <input type="checkbox" name="availability" value="samedi"> Samedi
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 0.5rem;">
-                            <input type="checkbox" name="availability" value="dimanche"> Dimanche
-                        </label>
-                    </div>
+                    <label for="availability" class="form-label">Disponibilités</label>
+                    <textarea id="availability" class="form-textarea" placeholder="Ex: Lundi-Vendredi 8h-18h, Week-end sur rendez-vous"></textarea>
                 </div>
                 
                 <div class="form-actions">
@@ -662,36 +772,25 @@
                 <h2 class="form-title">Validation</h2>
                 
                 <div class="form-group">
-                    <div style="background: #F3F4F6; padding: 1.5rem; border-radius: 8px;">
+                    <p>Veuillez vérifier vos informations avant soumission :</p>
+                    
+                    <div style="background: #F3F4F6; padding: 1.5rem; border-radius: 8px; margin-top: 1rem;">
                         <h3 style="margin-bottom: 1rem; color: var(--primary);">Récapitulatif</h3>
                         
-                        <div id="summaryContent" style="line-height: 2;">
-                            <!-- Le contenu sera généré par JavaScript -->
-                        </div>
+                        <div id="summaryContent"></div>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label">Conditions d'utilisation</label>
-                    <div style="max-height: 200px; overflow-y: auto; border: 1px solid #E5E7EB; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                        <p>En soumettant ce formulaire, vous acceptez :</p>
-                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
-                            <li>Les conditions générales d'utilisation de AfriServices</li>
-                            <li>Que vos informations soient visibles par les utilisateurs</li>
-                            <li>Une commission de 10% sur chaque transaction</li>
-                            <li>De fournir des services professionnels de qualité</li>
-                        </ul>
-                    </div>
-                    
-                    <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer;">
-                        <input type="checkbox" id="termsAgreement" style="margin-top: 0.25rem;">
-                        <span>J'accepte les conditions d'utilisation <span class="required">*</span></span>
+                    <label class="form-label">
+                        <input type="checkbox" id="termsAgreement" required>
+                        J'accepte les <a href="#" style="color: var(--primary);">conditions générales</a> et la <a href="#" style="color: var(--primary);">politique de confidentialité</a> <span class="required">*</span>
                     </label>
                 </div>
                 
                 <div class="form-actions">
                     <button type="button" class="btn btn-outline" onclick="prevStep(4)">Précédent</button>
-                    <button type="button" class="btn btn-primary" id="submitForm">Soumettre mon service</button>
+                    <button type="submit" class="btn btn-primary">Soumettre ma candidature</button>
                 </div>
             </div>
         </div>
@@ -700,7 +799,7 @@
     <!-- Section Avantages -->
     <section class="benefits-section">
         <div class="benefits-container">
-            <h2 class="section-title">Pourquoi devenir prestataire ?</h2>
+            <h2 class="section-title">Pourquoi rejoindre AfriServices ?</h2>
             
             <div class="benefits-grid">
                 <div class="benefit-card">
@@ -708,23 +807,23 @@
                         <i class="fas fa-users"></i>
                     </div>
                     <h3 class="benefit-title">Plus de clients</h3>
-                    <p>Augmentez votre visibilité et touchez des milliers de clients potentiels</p>
+                    <p>Augmentez votre visibilité auprès de milliers de clients potentiels dans votre région.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="benefit-title">Notation et avis</h3>
+                    <p>Bénéficiez d'un système de notation qui renforce votre crédibilité auprès des clients.</p>
                 </div>
                 
                 <div class="benefit-card">
                     <div class="benefit-icon">
                         <i class="fas fa-euro-sign"></i>
                     </div>
-                    <h3 class="benefit-title">Gains supplémentaires</h3>
-                    <p>Générez des revenus complémentaires en monétisant vos compétences</p>
-                </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <h3 class="benefit-title">Flexibilité</h3>
-                    <p>Travaillez quand vous voulez, selon vos disponibilités</p>
+                    <h3 class="benefit-title">Paiement sécurisé</h3>
+                    <p>Recevez vos paiements en toute sécurité via notre plateforme de confiance.</p>
                 </div>
             </div>
         </div>
@@ -736,67 +835,97 @@
             <a href="index.html" class="footer-link">Accueil</a>
             <a href="services.html" class="footer-link">Services</a>
             <a href="prestataires.html" class="footer-link">Prestataires</a>
+            <a href="devenir-prestataire.html" class="footer-link">Devenir Prestataire</a>
             <a href="contact.html" class="footer-link">Contact</a>
             <a href="conditions.html" class="footer-link">Conditions</a>
         </div>
         
         <div class="footer-bottom">
-            <p>© 2024 AfriServices. Tous droits réservés.</p>
+            &copy; 2023 AfriServices. Tous droits réservés.
         </div>
     </footer>
 
     <script>
+        // Gestion du menu mobile
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const icon = this.querySelector('i');
+            
+            mobileMenu.classList.toggle('active');
+            
+            if (mobileMenu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Fermer le menu mobile lorsqu'un lien est cliqué
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const mobileMenu = document.getElementById('mobileMenu');
+                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                const icon = mobileMenuBtn.querySelector('i');
+                
+                mobileMenu.classList.remove('active');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+
         // Gestion des étapes du formulaire
         let currentStep = 1;
         const totalSteps = 4;
-
+        
         function updateStepProgress() {
             const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
             document.getElementById('stepProgress').style.width = `${progress}%`;
             
-            // Mettre à jour les classes des étapes
-            document.querySelectorAll('.step').forEach((step, index) => {
-                if (index + 1 < currentStep) {
-                    step.classList.remove('active');
-                    step.classList.add('completed');
-                } else if (index + 1 === currentStep) {
+            document.querySelectorAll('.step').forEach(step => {
+                const stepNumber = parseInt(step.getAttribute('data-step'));
+                
+                step.classList.remove('active', 'completed');
+                
+                if (stepNumber === currentStep) {
                     step.classList.add('active');
-                    step.classList.remove('completed');
-                } else {
-                    step.classList.remove('active', 'completed');
+                } else if (stepNumber < currentStep) {
+                    step.classList.add('completed');
                 }
             });
         }
-
-        function showStep(stepNumber) {
-            document.querySelectorAll('.form-step').forEach(step => {
-                step.classList.remove('active');
-            });
-            
-            document.getElementById(`step${stepNumber}`).classList.add('active');
-            currentStep = stepNumber;
-            updateStepProgress();
-        }
-
+        
         function nextStep(current) {
             if (validateStep(current)) {
-                showStep(current + 1);
+                document.getElementById(`step${current}`).classList.remove('active');
+                currentStep = current + 1;
+                document.getElementById(`step${currentStep}`).classList.add('active');
+                updateStepProgress();
                 
-                // Générer le récapitulatif à la dernière étape
-                if (current + 1 === totalSteps) {
+                if (currentStep === totalSteps) {
                     generateSummary();
+                }
+                
+                // Afficher/masquer les champs de tarif en fonction de la sélection
+                if (currentStep === 3) {
+                    const pricingModel = document.getElementById('pricingModel').value;
+                    updatePriceFields(pricingModel);
                 }
             }
         }
-
+        
         function prevStep(current) {
-            showStep(current - 1);
+            document.getElementById(`step${current}`).classList.remove('active');
+            currentStep = current - 1;
+            document.getElementById(`step${currentStep}`).classList.add('active');
+            updateStepProgress();
         }
-
+        
         function validateStep(step) {
             let isValid = true;
             
-            // Validation de l'étape 1
+            // Validation pour l'étape 1
             if (step === 1) {
                 const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'location'];
                 requiredFields.forEach(field => {
@@ -808,13 +937,9 @@
                         element.style.borderColor = '#E5E7EB';
                     }
                 });
-                
-                if (!isValid) {
-                    alert('Veuillez remplir tous les champs obligatoires');
-                }
             }
             
-            // Validation de l'étape 2
+            // Validation pour l'étape 2
             if (step === 2) {
                 const requiredFields = ['serviceTitle', 'serviceCategory', 'serviceDescription'];
                 requiredFields.forEach(field => {
@@ -826,42 +951,42 @@
                         element.style.borderColor = '#E5E7EB';
                     }
                 });
-                
-                if (!isValid) {
-                    alert('Veuillez remplir tous les champs obligatoires');
+            }
+            
+            // Validation pour l'étape 3
+            if (step === 3) {
+                const pricingModel = document.getElementById('pricingModel').value;
+                if (!pricingModel) {
+                    document.getElementById('pricingModel').style.borderColor = 'var(--accent)';
+                    isValid = false;
+                } else {
+                    document.getElementById('pricingModel').style.borderColor = '#E5E7EB';
+                    
+                    if (pricingModel === 'fixed' && !document.getElementById('price').value) {
+                        document.getElementById('price').style.borderColor = 'var(--accent)';
+                        isValid = false;
+                    } else if (pricingModel === 'hourly' && !document.getElementById('hourlyRate').value) {
+                        document.getElementById('hourlyRate').style.borderColor = 'var(--accent)';
+                        isValid = false;
+                    }
                 }
             }
             
-            // Validation de l'étape 3
-            if (step === 3) {
-                const pricingModel = document.getElementById('pricingModel').value;
-                let priceValid = true;
-                
-                if (pricingModel === 'fixed' && !document.getElementById('price').value) {
-                    priceValid = false;
-                } else if (pricingModel === 'hourly' && !document.getElementById('hourlyRate').value) {
-                    priceValid = false;
-                }
-                
-                if (!pricingModel || !priceValid) {
-                    alert('Veuillez sélectionner un modèle de tarification et renseigner le montant');
-                    isValid = false;
-                }
-                
-                const availabilityChecked = document.querySelectorAll('input[name="availability"]:checked').length > 0;
-                if (!availabilityChecked) {
-                    alert('Veuillez sélectionner au moins un jour de disponibilité');
+            // Validation pour l'étape 4
+            if (step === 4) {
+                if (!document.getElementById('termsAgreement').checked) {
+                    alert('Veuillez accepter les conditions générales');
                     isValid = false;
                 }
             }
             
             return isValid;
         }
-
+        
         function generateSummary() {
-            const summaryContent = document.getElementById('summaryContent');
+            const summary = document.getElementById('summaryContent');
             let html = `
-                <p><strong>Nom :</strong> ${document.getElementById('firstName').value} ${document.getElementById('lastName').value}</p>
+                <p><strong>Nom complet :</strong> ${document.getElementById('firstName').value} ${document.getElementById('lastName').value}</p>
                 <p><strong>Email :</strong> ${document.getElementById('email').value}</p>
                 <p><strong>Téléphone :</strong> ${document.getElementById('phone').value}</p>
                 <p><strong>Localisation :</strong> ${document.getElementById('location').options[document.getElementById('location').selectedIndex].text}</p>
@@ -870,97 +995,105 @@
                 <p><strong>Catégorie :</strong> ${document.getElementById('serviceCategory').options[document.getElementById('serviceCategory').selectedIndex].text}</p>
                 <p><strong>Description :</strong> ${document.getElementById('serviceDescription').value.substring(0, 100)}...</p>
                 <hr style="margin: 1rem 0; border-color: #E5E7EB;">
+                <p><strong>Tarification :</strong> ${document.getElementById('pricingModel').options[document.getElementById('pricingModel').selectedIndex].text}</p>
             `;
             
             const pricingModel = document.getElementById('pricingModel').value;
             if (pricingModel === 'fixed') {
-                html += `<p><strong>Tarif :</strong> ${document.getElementById('price').value} FCFA (forfait)</p>`;
+                html += `<p><strong>Prix :</strong> ${document.getElementById('price').value} FCFA</p>`;
             } else if (pricingModel === 'hourly') {
-                html += `<p><strong>Tarif :</strong> ${document.getElementById('hourlyRate').value} FCFA/heure</p>`;
-            } else {
-                html += `<p><strong>Tarif :</strong> Sur devis</p>`;
+                html += `<p><strong>Taux horaire :</strong> ${document.getElementById('hourlyRate').value} FCFA/heure</p>`;
             }
             
-            const availability = [];
-            document.querySelectorAll('input[name="availability"]:checked').forEach(checkbox => {
-                availability.push(checkbox.value);
-            });
-            html += `<p><strong>Disponibilités :</strong> ${availability.join(', ')}</p>`;
+            if (document.getElementById('availability').value) {
+                html += `<p><strong>Disponibilités :</strong> ${document.getElementById('availability').value}</p>`;
+            }
             
-            summaryContent.innerHTML = html;
+            summary.innerHTML = html;
         }
-
+        
         // Gestion de l'upload d'images
-        document.getElementById('imageUpload').addEventListener('click', function() {
-            document.getElementById('fileInput').click();
-        });
-
-        document.getElementById('fileInput').addEventListener('change', function(e) {
-            const files = e.target.files;
-            const previewGrid = document.getElementById('previewGrid');
+        const imageUpload = document.getElementById('imageUpload');
+        const fileInput = document.getElementById('fileInput');
+        const previewGrid = document.getElementById('previewGrid');
+        let uploadedFiles = [];
+        
+        imageUpload.addEventListener('click', () => fileInput.click());
+        
+        fileInput.addEventListener('change', function() {
+            const files = Array.from(this.files);
             
-            // Limiter à 5 images
-            if (files.length > 5) {
-                alert('Vous ne pouvez uploader que 5 images maximum');
+            if (files.length + uploadedFiles.length > 5) {
+                alert('Vous ne pouvez téléverser que 5 images maximum');
                 return;
             }
             
-            previewGrid.innerHTML = '';
-            
-            for (let i = 0; i < Math.min(files.length, 5); i++) {
-                const file = files[i];
-                if (!file.type.match('image.*')) continue;
+            files.forEach(file => {
+                if (!file.type.match('image.*')) {
+                    return;
+                }
                 
                 const reader = new FileReader();
+                
                 reader.onload = function(e) {
-                    const previewItem = document.createElement('div');
-                    previewItem.className = 'preview-item';
-                    previewItem.innerHTML = `
-                        <img src="${e.target.result}" class="preview-image" alt="Preview">
-                        <div class="remove-image" onclick="removeImage(this.parentElement)">
-                            <i class="fas fa-times"></i>
-                        </div>
-                    `;
-                    previewGrid.appendChild(previewItem);
-                };
+                    uploadedFiles.push({
+                        file: file,
+                        preview: e.target.result
+                    });
+                    
+                    updatePreview();
+                }
+                
                 reader.readAsDataURL(file);
-            }
-        });
-
-        function removeImage(element) {
-            element.remove();
-        }
-
-        // Gestion dynamique des champs de tarification
-        document.getElementById('pricingModel').addEventListener('change', function() {
-            const value = this.value;
+            });
             
+            fileInput.value = '';
+        });
+        
+        function updatePreview() {
+            previewGrid.innerHTML = '';
+            
+            uploadedFiles.forEach((file, index) => {
+                const previewItem = document.createElement('div');
+                previewItem.className = 'preview-item';
+                
+                const previewImage = document.createElement('img');
+                previewImage.className = 'preview-image';
+                previewImage.src = file.preview;
+                
+                const removeButton = document.createElement('div');
+                removeButton.className = 'remove-image';
+                removeButton.innerHTML = '<i class="fas fa-times"></i>';
+                removeButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    uploadedFiles.splice(index, 1);
+                    updatePreview();
+                });
+                
+                previewItem.appendChild(previewImage);
+                previewItem.appendChild(removeButton);
+                previewGrid.appendChild(previewItem);
+            });
+        }
+        
+        // Gestion des champs de tarif dynamiques
+        document.getElementById('pricingModel').addEventListener('change', function() {
+            updatePriceFields(this.value);
+        });
+        
+        function updatePriceFields(pricingModel) {
             document.getElementById('priceInputGroup').style.display = 'none';
             document.getElementById('hourlyRateGroup').style.display = 'none';
             
-            if (value === 'fixed') {
+            if (pricingModel === 'fixed') {
                 document.getElementById('priceInputGroup').style.display = 'block';
-            } else if (value === 'hourly') {
+            } else if (pricingModel === 'hourly') {
                 document.getElementById('hourlyRateGroup').style.display = 'block';
             }
-        });
-
-        // Soumission du formulaire
-        document.getElementById('submitForm').addEventListener('click', function() {
-            if (!document.getElementById('termsAgreement').checked) {
-                alert('Veuillez accepter les conditions d\'utilisation');
-                return;
-            }
-            
-            // Ici vous ajouteriez la logique de soumission réelle (AJAX, etc.)
-            alert('Votre service a été soumis avec succès ! Notre équipe vous contactera sous 24h.');
-            // window.location.href = 'services.html';
-        });
-
+        }
+        
         // Initialisation
-        document.addEventListener('DOMContentLoaded', function() {
-            updateStepProgress();
-        });
+        updateStepProgress();
     </script>
 </body>
 </html>
