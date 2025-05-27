@@ -102,14 +102,18 @@
             width: 100%;
         }
         
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--dark);
-            cursor: pointer;
-        }
+.mobile-menu {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: white;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    padding: 1rem;
+    transform: translateY(-150%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* AJOUTEZ CETTE LIGNE */
+    z-index: 999;
+}
 
         /* Section Compte */
         .account-section {
@@ -266,14 +270,16 @@
         </div>
         
         <!-- Mobile Menu (identique) -->
-        <div class="mobile-menu" id="mobileMenu">
-            <ul class="mobile-nav-menu">
-                <li class="mobile-nav-item"><a href="index.html" class="mobile-nav-link">Accueil</a></li>
-                <li class="mobile-nav-item"><a href="services.html" class="mobile-nav-link">Services</a></li>
-                <li class="mobile-nav-item"><a href="contact.html" class="mobile-nav-link">Contact</a></li>
-                <li class="mobile-nav-item"><a href="mon-compte.html" class="mobile-nav-link">Mon compte</a></li>
-            </ul>
-        </div>
+        
+<div class="mobile-menu" id="mobileMenu"> <!-- Pas de 'active' ici -->
+    <ul class="mobile-nav-menu">
+        <li class="mobile-nav-item"><a href="index.html" class="mobile-nav-link">Accueil</a></li>
+        <li class="mobile-nav-item"><a href="services.html" class="mobile-nav-link">Services</a></li>
+        <li class="mobile-nav-item"><a href="contact.html" class="mobile-nav-link">Contact</a></li>
+        <li class="mobile-nav-item"><a href="mon-compte.html" class="mobile-nav-link">Mon compte</a></li>
+    </ul>
+</div>
+       
     </header>
 
     <!-- Contenu du compte -->
@@ -415,6 +421,26 @@
                 icon.classList.add('fa-bars');
             });
         });
+        // APRÈS le code existant du menu mobile, AJOUTEZ :
+
+// Fermer le menu en cliquant en dehors
+document.addEventListener('click', (e) => {
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuBtn = document.getElementById('mobileMenuBtn');
+    
+    if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+        mobileMenu.classList.remove('active');
+        menuBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
+    }
+});
+
+// Synchronisation de l'icône avec l'animation
+document.getElementById('mobileMenu').addEventListener('transitionend', () => {
+    const icon = document.getElementById('mobileMenuBtn').querySelector('i');
+    if (!document.getElementById('mobileMenu').classList.contains('active')) {
+        icon.classList.replace('fa-times', 'fa-bars');
+    }
+});
     </script>
 </body>
 </html>
