@@ -1,974 +1,353 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AfriServices | Trouvez des professionnels qualifiés</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #2E86AB;
-            --secondary: #F18F01;
-            --accent: #C73E1D;
-            --dark: #2B2D42;
-            --light: #F7F7FF;
-            --details-btn: #3A7CA5; /* Nouvelle couleur pour le bouton Voir détails */
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-        }
-        
-        body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-        }
-        
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 1000;
-            padding: 1rem;
-        }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-        }
-        
-        .logo-icon {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-right: 0.5rem;
-        }
-        
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--dark);
-        }
-        
-        .nav-menu {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-item {
-            margin-left: 1.5rem;
-        }
-        
-        .nav-link {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            transition: color 0.3s;
-            position: relative;
-        }
-        
-        .nav-link:hover {
-            color: var(--primary);
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary);
-            transition: width 0.3s;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--dark);
-            cursor: pointer;
-        }
-        
-        /* Header Hero */
-        .hero {
-            position: relative;
-            height: 80vh;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            margin-top: 70px; /* Pour compenser le header fixe */
-        }
-        
-        .hero-image {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 1;
-            filter: brightness(0.7);
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .hero-title {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            animation: fadeInUp 1s ease;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.5rem;
-            max-width: 600px;
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s ease 0.3s forwards;
-            opacity: 0;
-        }
-        
-        .hero-cta {
-            display: inline-block;
-            background: var(--secondary);
-            color: var(--dark);
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-            animation: fadeInUp 1s ease 0.6s forwards;
-            opacity: 0;
-            border: 3px solid transparent;
-        }
-        
-        .hero-cta:hover {
-            background: transparent;
-            border-color: var(--secondary);
-            color: white;
-            transform: translateY(-3px);
-        }
-        
-        /* Section Recherche */
-        .search-section {
-            background: white;
-            padding: 3rem 1rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            position: relative;
-            z-index: 3;
-            margin-top: -50px;
-            border-radius: 20px 20px 0 0;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .search-container {
-            display: flex;
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-radius: 50px;
-            overflow: hidden;
-        }
-        
-        .search-input {
-            flex: 1;
-            padding: 1.2rem 1.5rem;
-            border: none;
-            font-size: 1.1rem;
-        }
-        
-        .search-button {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0 2rem;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .search-button:hover {
-            background: var(--accent);
-        }
-        
-        /* Carousel Services */
-        .services-carousel {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        
-        .carousel-title {
-            text-align: center;
-            margin-bottom: 2rem;
-            color: var(--primary);
-            font-size: 2rem;
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .service-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-            border: 1px solid #eee;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-        
-        .service-image {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-        
-        .service-content {
-            padding: 1.5rem;
-        }
-        
-        .service-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
-        
-        .service-description {
-            color: #666;
-            margin-bottom: 1rem;
-        }
-        
-        .service-button {
-            display: inline-block;
-            background: var(--details-btn);
-            color: white;
-            padding: 0.7rem 1.5rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        
-        .service-button:hover {
-            background: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-        }
-        
-        .discover-button {
-            display: block;
-            text-align: center;
-            margin: 3rem auto;
-            background: var(--primary);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            width: fit-content;
-            transition: all 0.3s;
-        }
-        
-        .discover-button:hover {
-            background: var(--accent);
-            transform: scale(1.05);
-        }
-        
-        /* Section Fonctionnement */
-        .how-it-works {
-            background: var(--primary);
-            color: white;
-            padding: 4rem 1rem;
-            position: relative;
-        }
-        
-        .how-it-works::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 50px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M1200 0L0 0 892.25 114.72 1200 0z" fill="%23ffffff"></path></svg>');
-            background-size: cover;
-            transform: translateY(-99%);
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-        }
-        
-        .steps-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .step {
-            flex: 1;
-            min-width: 250px;
-            text-align: center;
-            padding: 2rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            transition: all 0.3s;
-        }
-        
-        .step:hover {
-            transform: translateY(-10px);
-            background: rgba(255,255,255,0.2);
-        }
-        
-        .step-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--secondary);
-        }
-        
-        .step-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .submit-service {
-            display: block;
-            text-align: center;
-            margin: 3rem auto 0;
-            background: var(--secondary);
-            color: var(--dark);
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            width: fit-content;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-        }
-        
-        .submit-service:hover {
-            background: transparent;
-            border-color: var(--secondary);
-            color: white;
-        }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Mobile Menu */
-        .mobile-menu {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            right: 0;
-            background: white;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-            padding: 1rem;
-            transform: translateY(-150%);
-            transition: transform 0.3s ease;
-            z-index: 999;
-        }
-        
-        .mobile-menu.active {
-            transform: translateY(0);
-        }
-        
-        .mobile-nav-menu {
-            list-style: none;
-        }
-        
-        .mobile-nav-item {
-            margin-bottom: 1rem;
-        }
-        
-        .mobile-nav-link {
-            text-decoration: none;
-            color: var(--dark);
-            font-size: 1.1rem;
-            display: block;
-            padding: 0.5rem;
-            transition: color 0.3s;
-        }
-        
-        .mobile-nav-link:hover {
-            color: var(--primary);
-        }
-        
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1001;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .modal.active {
-            display: flex;
-        }
-        
-        .modal-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            max-width: 600px;
-            width: 90%;
-            position: relative;
-            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
-            animation: fadeInUp 0.3s ease;
-        }
-        
-        .close-button {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--dark);
-            transition: color 0.3s;
-            background: none;
-            border: none;
-        }
-        
-        .close-button:hover {
-            color: var(--accent);
-        }
-        
-        .modal-title {
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-        }
-        
-        .modal-provider {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .modal-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 1rem;
-            object-fit: cover;
-        }
-        
-        .modal-rating {
-            color: var(--secondary);
-            margin-bottom: 1rem;
-        }
-        
-        .modal-price {
-            font-weight: bold;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-        }
-        
-        .modal-description {
-            margin-bottom: 2rem;
-            line-height: 1.7;
-        }
-        
-        .modal-contact {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-        
-        .modal-contact:hover {
-            background: var(--accent);
-            transform: translateY(-2px);
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .search-container {
-                flex-direction: column;
-                border-radius: 15px;
-            }
-            
-            .search-input {
-                padding: 1rem;
-            }
-            
-            .search-button {
-                padding: 1rem;
-            }
-            
-            .steps-container {
-                flex-direction: column;
-            }
-            
-            .modal-content {
-                padding: 1.5rem;
-            }
-        }
-        
-        @media (min-width: 769px) {
-            .mobile-menu {
-                display: none;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Étui 4-en-1 : Briquet + Distribution + Chargeur + Torche | 9 900 FCFA</title>
+  <meta name="description" content="L'accessoire multifonction ultime : briquet électrique, distribution auto, charge USB, torche LED. Livraison partout au Burkina."/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      background: #f2f4f6;
+      color: #1e2b37;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+    h1, h2 {
+      color: #0f2c34;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    h1 { font-size: 2.2rem; letter-spacing: -0.5px; }
+    h2 { font-size: 1.9rem; border-left: 6px solid #25D366; padding-left: 1rem; }
+    .section {
+      background: white;
+      padding: 2rem 1.8rem;
+      margin: 2rem 0;
+      border-radius: 32px;
+      box-shadow: 0 10px 25px rgba(0, 30, 20, 0.08);
+      transition: transform 0.2s ease;
+    }
+    .hero-img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 24px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .price-tag {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #c0392b;
+      line-height: 1;
+    }
+    .old-price {
+      font-size: 1.7rem;
+      color: #7f8c8d;
+      text-decoration: line-through;
+      font-weight: 400;
+      margin-left: 10px;
+    }
+    .stock {
+      background: #fef3e0;
+      color: #b45f1b;
+      font-weight: 700;
+      padding: 8px 20px;
+      border-radius: 60px;
+      display: inline-block;
+      font-size: 1.2rem;
+      border: 1px solid #f5cba0;
+    }
+    .btn-whatsapp {
+      display: block;
+      width: 100%;
+      max-width: 500px;
+      margin: 30px auto 20px;
+      background: #25D366;
+      color: white;
+      text-align: center;
+      padding: 20px 18px;
+      font-size: 1.8rem;
+      font-weight: 800;
+      border-radius: 70px;
+      text-decoration: none;
+      box-shadow: 0 12px 25px rgba(37, 211, 102, 0.4);
+      position: sticky;
+      bottom: 25px;
+      z-index: 1000;
+      border: 2px solid white;
+      letter-spacing: 0.5px;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-whatsapp:hover {
+      background: #20b859;
+      transform: scale(1.02);
+    }
+    ul, dl { font-size: 1.1rem; }
+    li { margin-bottom: 10px; }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.8rem;
+      margin: 2rem 0;
+    }
+    .feature-card {
+      background: #fafafa;
+      border-radius: 28px;
+      padding: 1.5rem 1rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+      border: 1px solid #eaeef2;
+      transition: all 0.2s;
+    }
+    .feature-card:hover { transform: translateY(-6px); box-shadow: 0 15px 25px rgba(0,40,30,0.1); }
+    .feature-card img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 22px;
+      margin-bottom: 1rem;
+      border: 2px solid white;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+    .feature-card h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #1a4e3f;
+      margin: 0.5rem 0 0.8rem;
+    }
+    .feature-card p { font-size: 1.1rem; color: #2c3e50; }
+    .badge-option {
+      background: #1a3c34;
+      color: white;
+      border-radius: 40px;
+      padding: 8px 18px;
+      font-weight: 600;
+      display: inline-block;
+      margin: 6px 4px;
+    }
+    .payment-icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin: 20px 0 0;
+      font-weight: 600;
+    }
+    .payment-icons span {
+      background: #edf2f7;
+      padding: 10px 20px;
+      border-radius: 40px;
+      font-size: 1.2rem;
+    }
+    .footer-note {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #5d6d7e;
+      padding: 2rem 0 1rem;
+    }
+    .highlight { background: #fef9e7; border-radius: 30px; padding: 20px; }
+    
+    /* Style pour la section vidéo */
+    .video-placeholder {
+      background: #0a1e1a;
+      border-radius: 40px;
+      padding: 3rem 1rem;
+      text-align: center;
+      color: white;
+      margin: 2rem 0 1rem;
+      border: 3px dashed #f1c40f;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .video-placeholder:hover {
+      background: #143a30;
+    }
+    .video-placeholder p {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin: 1rem 0;
+    }
+    .video-placeholder svg {
+      width: 80px;
+      height: 80px;
+      fill: #f1c40f;
+    }
+    
+    @media (max-width: 600px) {
+      .container { padding: 12px; }
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.6rem; }
+      .section { padding: 1.5rem 1rem; border-radius: 28px; }
+      .btn-whatsapp { font-size: 1.5rem; padding: 16px; max-width: 95%; }
+      .feature-card h3 { font-size: 1.4rem; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="header-container">
-            <a href="index.html" class="logo">
-                <i class="fas fa-hands-helping logo-icon"></i>
-                <span class="logo-text">AfriServices</span>
-            </a>
-            
-            <nav class="desktop-nav">
-                <ul class="nav-menu">
-                    <li class="nav-item"><a href="index.html" class="nav-link">Accueil</a></li>
-                    <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-                    <li class="nav-item"><a href="mon-compte.html" class="nav-link">Mon compte</a></li>
-                </ul>
-            </nav>
-            
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-        
-        <!-- Mobile Menu -->
-        <div class="mobile-menu" id="mobileMenu">
-            <ul class="mobile-nav-menu">
-                <li class="mobile-nav-item"><a href="index.html" class="mobile-nav-link">Accueil</a></li>
-                <li class="mobile-nav-item"><a href="services.html" class="mobile-nav-link">Services</a></li>
-                <li class="mobile-nav-item"><a href="contact.html" class="mobile-nav-link">Contact</a></li>
-                <li class="mobile-nav-item"><a href="mon-compte.html" class="mobile-nav-link">Mon compte</a></li>
-            </ul>
-        </div>
-    </header>
-    
-    <!-- Section Hero -->
-    <section class="hero">
-        <img src="https://images.unsplash.com/photo-1605106702734-205df224ecce?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Ouvrier en chantier" class="hero-image">
-        <div class="hero-content">
-            <h1 class="hero-title">Vos besoins, notre réseau</h1>
-            <p class="hero-subtitle">Trouvez en quelques clics le professionnel idéal pour tous vos projets, du montage de meuble à la création de site web</p>
-            <a href="services.html" class="hero-cta">Trouver un service</a>
-        </div>
-    </section>
-    
-    <!-- Section Recherche -->
-    <section class="search-section">
-        <div class="search-container">
-            <input type="text" class="search-input" placeholder="Quel service recherchez-vous ?">
-            <button class="search-button">
-                <i class="fas fa-search"></i>
-            </button>
-        </div>
-        
-        <!-- Carousel Services -->
-        <div class="services-carousel" id="services">
-            <h2 class="carousel-title">Nos services phares</h2>
-            <div class="services-grid">
-                <!-- Service 1 -->
-                <div class="service-card">
-                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Développement Web" class="service-image">
-                    <div class="service-content">
-                        <h3 class="service-title">Développement Web</h3>
-                        <p class="service-description">Sites vitrines, e-commerce et applications sur mesure par des experts locaux</p>
-                        <button class="service-button" data-modal="modal1">Voir détails</button>
-                    </div>
-                </div>
-                
-                <!-- Service 2 -->
-                <div class="service-card">
-                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Réseaux sociaux" class="service-image">
-                    <div class="service-content">
-                        <h3 class="service-title">Gestion Facebook</h3>
-                        <p class="service-description">Création et animation professionnelle de vos pages sociales</p>
-                        <button class="service-button" data-modal="modal2">Voir détails</button>
-                    </div>
-                </div>
-                
-                <!-- Service 3 -->
-                <div class="service-card">
-                    <img src="https://images.unsplash.com/photo-1605152276897-4f618f831968?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Électricité" class="service-image">
-                    <div class="service-content">
-                        <h3 class="service-title">Électricité</h3>
-                        <p class="service-description">Installation et dépannage par des électriciens certifiés</p>
-                        <button class="service-button" data-modal="modal3">Voir détails</button>
-                    </div>
-                </div>
-                
-                <!-- Service 4 -->
-                <div class="service-card">
-                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Plomberie" class="service-image">
-                    <div class="service-content">
-                        <h3 class="service-title">Plomberie</h3>
-                        <p class="service-description">Interventions rapides pour tous vos problèmes de plomberie</p>
-                        <button class="service-button" data-modal="modal4">Voir détails</button>
-                    </div>
-                </div>
-            </div>
-            
-            <a href="services.html" class="discover-button">Découvrir tous les services</a>
-        </div>
-    </section>
-    
-    <!-- Section Fonctionnement -->
-    <section class="how-it-works">
-        <h2 class="section-title">Comment ça marche ?</h2>
-        <div class="steps-container">
-            <!-- Étape 1 -->
-            <div class="step">
-                <div class="step-icon">
-                    <i class="fas fa-search"></i>
-                </div>
-                <h3 class="step-title">1. Recherchez</h3>
-                <p>Trouvez le service dont vous avez besoin grâce à notre moteur de recherche intelligent</p>
-            </div>
-            
-            <!-- Étape 2 -->
-            <div class="step">
-                <div class="step-icon">
-                    <i class="fas fa-user-check"></i>
-                </div>
-                <h3 class="step-title">2. Comparez</h3>
-                <p>Consultez les profils, avis et tarifs des professionnels disponibles</p>
-            </div>
-            
-            <!-- Étape 3 -->
-            <div class="step">
-                <div class="step-icon">
-                    <i class="fas fa-handshake"></i>
-                </div>
-                <h3 class="step-title">3. Contactez</h3>
-                <p>Discutez directement via WhatsApp et convenez des détails</p>
-            </div>
-        </div>
-        
-        <a href="devenir-prestataire.html" class="submit-service">Proposer un service</a>
-    </section>
 
-    <!-- Modals for service details -->
-    <!-- Modal 1 - Développement Web -->
-    <div class="modal" id="modal1">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2 class="modal-title">Développement Web</h2>
-            <div class="modal-provider">
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Jean Dupont" class="modal-avatar">
-                <div>
-                    <h3>Jean Dupont</h3>
-                    <p>Développeur Web depuis 2015</p>
-                </div>
-            </div>
-            <div class="modal-rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-                <span>(24 avis)</span>
-            </div>
-            <div class="modal-price">À partir de 150 000 FCFA</div>
-            <p class="modal-description">
-                Création de sites web professionnels sur mesure avec les dernières technologies (HTML5, CSS3, JavaScript, React). 
-                Je propose des solutions adaptées à vos besoins, qu'il s'agisse d'un site vitrine, d'un e-commerce ou d'une application web complexe.
-                <br><br>
-                Services inclus :
-                <ul>
-                    <li>Conception responsive adaptée à tous les appareils</li>
-                    <li>Optimisation SEO</li>
-                    <li>Maintenance et support</li>
-                    <li>Formation à l'utilisation</li>
-                </ul>
-            </p>
-            <a href="#" class="modal-contact">Contacter le professionnel</a>
-        </div>
+<div class="container">
+
+  <!-- SECTION 1: HERO + BÉNÉFICE FORT + PREUVE SOCIALE -->
+  <section class="section">
+    <img class="hero-img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Étui multifonction métal brossé">
+    <h1>🔥 4 outils en 1 : le gadget ultime du fumeur</h1>
+    <p style="font-size:1.7rem; font-weight:700; color:#0f6749; margin:0.5rem 0;">Briquet • Distribution • Charge • Torche</p>
+    <div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:space-between; align-items:center; margin-top:30px;">
+      <div>
+        <span class="stock">📦 Plus que <strong>14 étuis</strong> en stock à Ouaga</span>
+        <p style="margin-top:12px; font-size:1.2rem;">⭐ 4.9/5 – 83 acheteurs déjà satisfaits</p>
+      </div>
+      <div style="text-align:right;">
+        <span class="price-tag">9 900 FCFA</span>
+        <span class="old-price">15 000 FCFA</span>
+      </div>
     </div>
+    <p style="font-size:1.3rem; margin:20px 0 0; background:#eafaf1; padding:15px 20px; border-radius:40px;">
+      ✅ Plus jamais sans briquet, plus de cigarettes écrasées – même à moto !
+    </p>
+  </section>
 
-    <!-- Modal 2 - Gestion Facebook -->
-    <div class="modal" id="modal2">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2 class="modal-title">Gestion Facebook</h2>
-            <div class="modal-provider">
-                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Aïcha Koné" class="modal-avatar">
-                <div>
-                    <h3>Aïcha Koné</h3>
-                    <p>Community Manager depuis 2018</p>
-                </div>
-            </div>
-            <div class="modal-rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i>
-                <span>(18 avis)</span>
-            </div>
-            <div class="modal-price">À partir de 75 000 FCFA/mois</div>
-            <p class="modal-description">
-                Gestion professionnelle de votre page Facebook avec création de contenu régulier et modération des commentaires.
-                Je vous aide à développer votre présence sur les réseaux sociaux et à engager votre audience.
-                <br><br>
-                Services inclus :
-                <ul>
-                    <li>Création et optimisation de votre page Facebook</li>
-                    <li>Publication de 3 à 5 posts par semaine</li>
-                    <li>Réponse aux commentaires et messages</li>
-                    <li>Analyse mensuelle des performances</li>
-                    <li>Création de visuels attractifs</li>
-                </ul>
-            </p>
-            <a href="#" class="modal-contact">Contacter le professionnel</a>
-        </div>
+  <!-- SECTION 2: CARACTÉRISTIQUES PRODUIT -->
+  <section class="section">
+    <h2>⚡ C’est bien plus qu’un simple étui</h2>
+    <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Gadget métal compact" style="width:100%; max-height:260px; object-fit:cover; border-radius:24px; margin:15 0 20px;">
+    <ul style="list-style-type: none; padding:0;">
+      <li>🔹 <strong>4 fonctions intelligentes :</strong> briquet électrique (charge USB) + distribution automatique + bloc de 10 clopes + lampe torche LED</li>
+      <li>🔹 <strong>Éjection automatique</strong> – une pression, une cigarette prête à être allumée</li>
+      <li>🔹 <strong>Recharge USB universelle :</strong> se charge comme un téléphone (batterie 300 mAh)</li>
+      <li>🔹 <strong>Matériau robuste :</strong> ABS + zinc brossé, 57 g, finition noir mat / gris</li>
+      <li>🔹 <strong>Fil tungstène remplaçable sans outil</strong> (pièces dispo chez nous)</li>
+      <li>🔹 <strong>Capacité :</strong> 10 king size ou slim (Marlboro, Bond, Excellence…) + briquet toujours chargé</li>
+    </ul>
+    <div style="background:#f2f9f7; border-radius:30px; padding:15px; margin-top:25px;">
+      <p style="font-weight:bold; margin:0;">✅ Testé et approuvé par des motocyclistes à Ouaga : le briquet résiste au vent !</p>
     </div>
+  </section>
 
-    <!-- Modal 3 - Électricité -->
-    <div class="modal" id="modal3">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2 class="modal-title">Installation électrique</h2>
-            <div class="modal-provider">
-                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Moussa Diarra" class="modal-avatar">
-                <div>
-                    <h3>Moussa Diarra</h3>
-                    <p>Électricien certifié depuis 2012</p>
-                </div>
-            </div>
-            <div class="modal-rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <span>(32 avis)</span>
-            </div>
-            <div class="modal-price">À partir de 50 000 FCFA</div>
-            <p class="modal-description">
-                Installation et dépannage électrique par un électricien certifié avec garantie sur les travaux.
-                Je propose des interventions rapides et efficaces pour tous vos besoins en électricité.
-                <br><br>
-                Services proposés :
-                <ul>
-                    <li>Installation électrique neuve</li>
-                    <li>Dépannage et réparation</li>
-                    <li>Mise aux normes</li>
-                    <li>Installation de prises et interrupteurs</li>
-                    <li>Pose de luminaires</li>
-                    <li>Tableau électrique</li>
-                </ul>
-            </p>
-            <a href="#" class="modal-contact">Contacter le professionnel</a>
-        </div>
-    </div>
-
-    <!-- Modal 4 - Plomberie -->
-    <div class="modal" id="modal4">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2 class="modal-title">Réparation plomberie</h2>
-            <div class="modal-provider">
-                <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Paul Akpa" class="modal-avatar">
-                <div>
-                    <h3>Paul Akpa</h3>
-                    <p>Plombier professionnel depuis 2010</p>
-                </div>
-            </div>
-            <div class="modal-rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <span>(29 avis)</span>
-            </div>
-            <div class="modal-price">À partir de 25 000 FCFA</div>
-            <p class="modal-description">
-                Intervention rapide pour tous vos problèmes de plomberie avec des pièces de qualité.
-                Je propose des solutions durables pour vos fuites, canalisations bouchées et installations sanitaires.
-                <br><br>
-                Services proposés :
-                <ul>
-                    <li>Dépannage de fuites</li>
-                    <li>Débouchage de canalisations</li>
-                    <li>Installation sanitaire</li>
-                    <li>Réparation de chauffe-eau</li>
-                    <li>Remplacement de robinetterie</li>
-                    <li>Installation de WC, douche, évier</li>
-                </ul>
-            </p>
-            <a href="#" class="modal-contact">Contacter le professionnel</a>
-        </div>
+  <!-- SECTION 3: GADGET UTILITAIRE MULTIFONCTION 4 EN 1 (FONCTIONNALITÉS + IMAGES) -->
+  <section class="section">
+    <h2>🧰 Gadget utilitaire multifonction 4 en 1</h2>
+    <p style="font-size:1.3rem; margin-bottom:1.5rem;">Découvre les 4 fonctions révolutionnaires de cet étui nouvelle génération :</p>
+    
+    <div class="features-grid">
+      <!-- 1. Briquet électrique -->
+      <div class="feature-card">
+        <img src="https://images.unsplash.com/photo-1605457180500-0e8c69a12007?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Briquet électrique rechargeable USB">
+        <h3>⚡ 1. Briquet électrique</h3>
+        <p>Allume tes cigarettes sans gaz ni essence. Recharge USB, flamme sans vent, résiste à la moto. Plus besoin de briquet jetable !</p>
+      </div>
+      
+      <!-- 2. Distribution automatique de clopes -->
+      <div class="feature-card">
+        <img src="https://images.unsplash.com/photo-1617791160505-6f00504e3519?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mécanisme éjection automatique">
+        <h3>📤 2. Distribution automatique</h3>
+        <p>Poussoir latéral : une cigarette sort proprement à chaque pression. Fini de fouiller au fond de la poche !</p>
+      </div>
+      
+      <!-- 3. Chargement 10 clopes -->
+      <div class="feature-card">
+        <img src="https://images.unsplash.com/photo-1605640840602-14ac0a8b376b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Capacité 10 cigarettes">
+        <h3>📦 3. Chargement 10 clopes</h3>
+        <p>Capacité optimale : 10 cigarettes (king size ou slim). Format compact mais assez pour la journée.</p>
+      </div>
+      
+      <!-- 4. Torche LED -->
+      <div class="feature-card">
+        <img src="https://images.unsplash.com/photo-1507133750040-4a8f57021571?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Lampe torche LED intégrée">
+        <h3>🔦 4. Torche LED</h3>
+        <p>Lampe torche intégrée puissante. Utile la nuit, pour chercher ses clés ou éclairer un chemin.</p>
+      </div>
     </div>
     
-    <script>
-        // Gestion du menu mobile
-        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            const icon = this.querySelector('i');
-            
-            mobileMenu.classList.toggle('active');
-            
-            if (mobileMenu.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        });
+    <p style="text-align:center; font-size:1.2rem; background:#f0fdf4; padding:15px; border-radius:60px;">👇 Le seul accessoire qui remplace 4 objets dans ta poche</p>
+  </section>
+
+  <!-- NOUVELLE SECTION: COMMENT ÇA MARCHE (EMPLACEMENT VIDÉO) -->
+  <section class="section">
+    <h2>🎥 Comment ça marche ? (vidéo démo)</h2>
+    <p style="font-size:1.2rem; margin-bottom:1.5rem;">Regarde en 30 secondes comment utiliser toutes les fonctions :</p>
     
-        
-        // Fermer le menu mobile lorsqu'un lien est cliqué
-        document.querySelectorAll('.mobile-nav-link').forEach(link => {
-            link.addEventListener('click', function() {
-                const mobileMenu = document.getElementById('mobileMenu');
-                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-                const icon = mobileMenuBtn.querySelector('i');
-                
-                mobileMenu.classList.remove('active');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            });
-        });
-        
-        // Gestion de la recherche
-        document.querySelector('.search-button').addEventListener('click', function() {
-            const query = document.querySelector('.search-input').value;
-            if (query.trim() !== '') {
-                window.location.href = `services.html?search=${encodeURIComponent(query)}`;
-            }
-        }); 
-        
-        // Permettre la recherche avec la touche Entrée
-        document.querySelector('.search-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                document.querySelector('.search-button').click();
-            }
-        });
-        
-        // Gestion des modales
-        const modalButtons = document.querySelectorAll('[data-modal]');
-        const modals = document.querySelectorAll('.modal');
-        const closeButtons = document.querySelectorAll('.close-button');
-        
-        // Ouvrir la modale correspondante
-        modalButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const modalId = this.getAttribute('data-modal');
-                document.getElementById(modalId).classList.add('active');
-                document.body.style.overflow = 'hidden'; // Empêcher le défilement
-            });
-        });
-        
-        // Fermer la modale avec le bouton ×
-        closeButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                this.closest('.modal').classList.remove('active');
-                document.body.style.overflow = ''; // Rétablir le défilement
-            });
-        });
+    <!-- Emplacement pour la vidéo (placeholder cliquable) -->
+    <div class="video-placeholder" onclick="alert('Tu pourras intégrer ta vidéo MP4 ici !')">
+      <!-- Icône play SVG -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+      <p>📽️ Clique ici pour voir la démonstration</p>
+      <p style="font-size:1rem; opacity:0.8;">(remplace ce bloc par ta vidéo MP4 ou lien YouTube)</p>
+      <p style="font-size:1.1rem; background:#f1c40f; color:#0a1e1a; display:inline-block; padding:10px 25px; border-radius:50px; margin-top:15px;">
+        ⏯️ INSÈRE TA VIDÉO ICI
+      </p>
+    </div>
+    
+    <p style="text-align:center; margin-top:25px; font-style:italic;">⏱️ Charge rapide • Éjection fluide • Allumage instantané</p>
+  </section>
 
-        // Fermer la modale en cliquant à l'extérieur
-        modals.forEach(modal => {
-            modal.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
-        });
+  <!-- SECTION 4: OFFRES & PRIX AVEC OPTIONS GROUPÉES + LIVRAISON -->
+  <section class="section highlight">
+    <h2>💰 Promo lancement – 9 900 FCFA seulement</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin:25px 0;">
+      <div style="background:white; border-radius:30px; padding:20px; min-width:200px; box-shadow:0 5px 10px rgba(0,0,0,0.05);">
+        <span class="badge-option">1 ÉTUI 4-en-1</span>
+        <p style="font-size:2rem; font-weight:bold; margin:15px 0;">9 900 F</p>
+        <p>📦 Économie <strong>5 100 F</strong></p>
+      </div>
+      <div style="background:white; border-radius:30px; padding:20px; min-width:200px; box-shadow:0 5px 15px rgba(0,100,50,0.1); border:2px solid #f1c40f;">
+        <span class="badge-option" style="background:#d4a017;">⭐ PACK 2 ÉTUIS</span>
+        <p style="font-size:2rem; font-weight:bold; margin:15px 0;">18 000 F</p>
+        <p>📉 Économie <strong>1 800 F</strong> + livraison offerte</p>
+      </div>
+    </div>
+    <p style="font-size:1.3rem;">🚀 <strong>Livraison express :</strong> Ouaga centre <strong>gratuite</strong> • Autres localités 1 000–2 000 F (par moto)</p>
+    <div class="payment-icons">
+      <span>📱 Orange Money</span>
+      <span>📲 Moov Money</span>
+      <span>🌊 Wave</span>
+      <span>🤝 Paiement à la livraison</span>
+    </div>
+  </section>
 
-        // Fermer la modale avec la touche ESC
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                modals.forEach(modal => {
-                    modal.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-            }
-        });
-    </script>
+  <!-- SECTION 5: GARANTIE 100% BURKINA -->
+  <section class="section">
+    <h2>🛡️ Garantie satisfait ou remboursé (vraiment)</h2>
+    <ul style="display:grid; gap:15px;">
+      <li>🔹 <strong>7 jours pour tester</strong> – si tu n’es pas conquis, on échange ou on rembourse</li>
+      <li>🔹 <strong>Retour gratuit à Ouaga</strong> en cas de défaut ou d’insatisfaction</li>
+      <li>🔹 <strong>Pièces détachées dispo</strong> (fil tungstène de rechange à petit prix)</li>
+      <li>🔹 <strong>Service après-vente local :</strong> nous sommes basés à Ouaga, réponse WhatsApp rapide</li>
+    </ul>
+    <p style="font-size:1.5rem; font-weight:600; color:#0f3d34; text-align:center; margin-top:30px;">+ de 80 clients déjà satisfaits au Burkina 🇧🇫</p>
+  </section>
+
+  <!-- SECTION ULTIME : RAPPEL URGENCE + BOUTON -->
+  <section class="section" style="text-align:center; background:linear-gradient(145deg, #0f3a30, #1b5e4b); color:white;">
+    <h2 style="color:white; border-left-color:#ffb347;">⏳ Stock sérieusement limité</h2>
+    <p style="font-size:2rem; font-weight:800; margin:10px 0;">Il reste <span style="background:#ffb347; padding:5px 25px; border-radius:60px; color:#1e2b37;">14 étuis 4-en-1</span></p>
+    <p style="font-size:1.4rem;">Briquet + distribution + charge + torche. Passe commande maintenant.</p>
+    <a href="https://wa.me/22670000000?text=Salut%20!%20Je%20veux%20commander%20l’étui%20multifonction%204-en-1%20à%209900%20FCFA%20(pack%20ou%20simple)%20et%20connaître%20la%20livraison." class="btn-whatsapp" style="position:static; margin:30px auto 10px; box-shadow:0 10px 20px rgba(0,0,0,0.3);">
+      📲 Commander sur WhatsApp
+    </a>
+    <p style="color:#ddd;">Réponse sous 5 minutes – 7j/7</p>
+  </section>
+
+  <div class="footer-note">
+    <p>🔌 Étui 4-en-1 (briquet électrique, distribution, bloc 10 clopes, torche) • Livraison partout au Burkina • Garantie locale</p>
+    <p>© 2025 – Vente accélérateur Ouaga • WhatsApp 70 00 00 00</p>
+  </div>
+
+</div>
+
+<!-- BOUTON STICKY WHATSAPP AMÉLIORÉ -->
+<a href="https://wa.me/22670000000?text=Bonjour%20!%20Intéressé(e)%20par%20l'étui%204-en-1%20à%209900F%20(briquet%20+%20distribution%20+%20torche).%20Est-ce%20toujours%20disponible%20%3F%20Je%20souhaite%20commander." class="btn-whatsapp">
+  💬 Obtenir le 4-en-1 – WhatsApp
+</a>
+
 </body>
 </html>
